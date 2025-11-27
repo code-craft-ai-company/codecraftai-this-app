@@ -3,7 +3,7 @@ name = "automojo-this-app"
 description = "Automation Mojo - This-App"
 version = "0.0.1"
 authors = [
-    "Myron Walker<automationx@automationmojo.com>"
+    "Myron Walker"
 ]
 readme = "README.rst"
 license = "LICENSE.txt"
