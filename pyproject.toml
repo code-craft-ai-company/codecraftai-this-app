@@ -2,7 +2,9 @@
 name = "automojo-this-app"
 description = "Automation Mojo - This-App"
 version = "0.0.1"
-authors = []
+authors = [
+    {name = "Myron Walker", email = "automationx@automationmojo.com"},
+]
 readme = "README.rst"
 license = "LICENSE.txt"
 classifiers = [
