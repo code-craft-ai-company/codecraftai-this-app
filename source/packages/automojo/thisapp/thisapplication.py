@@ -22,6 +22,7 @@ from automojo.errors.exceptions import SemanticError
 from automojo.thisapp.appvardesc import AppVarDesc, VariableSource, ValueConverter
 from automojo.thisapp.appvarset import AppVarSet
 
+
 class ThisApplication:
     """
         Represents a single point of service for interacting with the application presence.
@@ -39,8 +40,8 @@ class ThisApplication:
             :param extension_modules: A 
         """
 
-        if "from_establish_settings" not in other:
-            errmsg = "The `ThisApplication` singleton object should not be instantiated directly. Call `establish_presence_settings` " \
+        if "from_establish_app_persona" not in other:
+            errmsg = "The `ThisApplication` singleton object should not be instantiated directly. Call `establish_app_persona` " \
                      "to establish application wide presence settings and then use the wellknown singlton to access the application presence" \
                      "instance."
             raise SemanticError(errmsg)
@@ -171,12 +172,8 @@ class ThisApplication:
         if variable_desc.source & VariableSource.ENVIRONMENT and variable_desc.overrides:
             os.environ[vname] = new_value
         
-        if variable_desc.context_path is not None:
-            valstr = new_value
-            if not isinstance(new_value, str):
-                valstr = repr(new_value)
-            if self._context_insert is not None:
-                self._context_insert(variable_desc.context_path, valstr)
+        if self._context_insert is not None and variable_desc.context_path is not None:
+            self._context_insert(variable_desc.context_path, new_value)
 
         return
 
@@ -211,10 +208,7 @@ class ThisApplication:
         vval = self.get_variable_value(var_desc)
         
         # If the variable has a designated context location, store the variable
-        if var_desc.context_path is not None:
-            valstr = vval
-            if not isinstance(vval, str):
-                valstr = repr(vval)
-            self._context.insert(var_desc.context_path, valstr)
+        if self._context_insert is not None and var_desc.context_path is not None:
+            self._context_insert(var_desc.context_path, vval)
 
         return
