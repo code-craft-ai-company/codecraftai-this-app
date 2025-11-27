@@ -19,8 +19,8 @@ from configparser import ConfigParser
 
 from automojo.errors.exceptions import SemanticError
 
-from automojo.xmodules.xcollections.context import Context
-
+from automojo.thisapp.appvardesc import AppVarDesc, VariableSource, ValueConverter
+from automojo.thisapp.appvarset import AppVarSet
 
 class ThisApplication:
     """
@@ -28,7 +28,7 @@ class ThisApplication:
     """
 
     def __init__(self, *, name: str, presence_dir: str, settings_file: str, extension_modules: str, logger_name: str,
-                 log_basename: str, log_directory: str, service_name: str, **other):
+                 log_basename: str, log_directory: str, service_name: str, context_insert, **other):
         """
             Constructs an `ThisApplication` object.
 
@@ -59,8 +59,7 @@ class ThisApplication:
         if os.path.exists(self._settings_file):
             self._config_parser.read(self._settings_file)
 
-        from automojo.presence.wellknown import ContextSingleton
-        self._context = ContextSingleton()
+        self._context_insert =context_insert
 
         self._startup_variables = {}
         self._startup_variables.update(os.environ)
@@ -104,7 +103,7 @@ class ThisApplication:
         return self._service_name
 
 
-    def get_variable_value(self, variable_desc: VariableDesc, default: Optional[str]=None, converter: Optional[ValueConverter] = None) -> Union[str, Any]:
+    def get_variable_value(self, variable_desc: AppVarDesc, default: Optional[str]=None, converter: Optional[ValueConverter] = None) -> Union[str, Any]:
         """
             Gets the value of an application variable using the settings order of precedence.  The order of presence is:
               - If the variable value has been overridden at the application level, use the override value
@@ -154,7 +153,7 @@ class ThisApplication:
         return vval
 
 
-    def override_variable_value(self, variable_desc: VariableDesc, new_value: str):
+    def override_variable_value(self, variable_desc: AppVarDesc, new_value: str):
         """
             Used to override an application level variable because an input parameter with higher precedence to the settings file
             environment variable was passed.  For example, an input parameter on the commandline that was associated with
@@ -176,14 +175,15 @@ class ThisApplication:
             valstr = new_value
             if not isinstance(new_value, str):
                 valstr = repr(new_value)
-            self._context.insert(variable_desc.context_path, valstr)
+            if self._context_insert is not None:
+                self._context_insert(variable_desc.context_path, valstr)
 
         return
 
 
-    def resolve_variable_set(self, variable_set: VariableSet):
+    def resolve_variable_set(self, variable_set: AppVarSet):
         """
-            Resolve the variables that are attached to the `VariableSet` being passed.
+            Resolve the variables that are attached to the `AppVarSet` being passed.
 
             :param variable_set: A variable set that has variables attached that should be resolved.
         """
@@ -200,7 +200,7 @@ class ThisApplication:
 
         return
 
-    def _perform_variable_resolution(self, var_desc: VariableDesc):
+    def _perform_variable_resolution(self, var_desc: AppVarDesc):
         """
             To resolve the variable, we get its value and then store the result into the context
             if we have a path for the variable.
