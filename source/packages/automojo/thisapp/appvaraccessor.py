@@ -5,8 +5,13 @@ from automojo.thisapp.appvardesc import AppVarDesc, assert_variable_name
 
 class AppVarAccessor:
     """
-        Class that establishes a way to declaratively read variables from the application variable storage.
+        Class that establishes a way to declaratively read variables from the global
+        ThisApplication variable storage.  The AppVarAccessor allows for convenient
+        grouping of variables allowing easy access to application variables, while at
+        the same time enforcing rules around how variable values are overriden.
     """
+
+    this_app = None
 
     def __init__(self, var_desc: AppVarDesc):
         """
@@ -22,6 +27,13 @@ class AppVarAccessor:
         self._var_desc = var_desc
 
         self._owner: Optional[type] = None
+
+        this_type = type(self)
+
+        if this_type.this_app is None:
+            from automojo.thisapp.wellknown import ThisApplicationSingleton
+            this_type.this_app = ThisApplicationSingleton()
+
         return
 
     def __set_name__(self, owner: type, name: str) -> None:
@@ -46,9 +58,9 @@ class AppVarAccessor:
         """
         target_owner = owner if owner is not None else self._owner
 
-        resolved_value = self.perform_read(instance, target_owner)
+        vfound = self.this_app.get_variable_value(self._var_desc)
 
-        return resolved_value
+        return vfound
 
     def __get__(self, instance: Optional[object], owner: Optional[type] = None) -> Any:
         """
@@ -58,17 +70,13 @@ class AppVarAccessor:
     
     def __set__(self, instance: Optional[object], value: Any) -> None:
         """
-            Prevents attempts to assign to application variables through the accessor.
+            Prevents attempts to assign to application variables through the accessor.  Assignments
+            to application variables should be made directly on ThisApplication by calling
+            `this_app.override_variable_value`.  This is enforced because it makes it much simpler
+            to track down 'Who' is modifying 'What' application level variables.
         """
-        var_name = self._var_desc.name if self._var_desc is not None else "<unbound>"
-        errmsg = f"Assignment to application variable '{var_name}' is not allowed."
+        errmsg = f"Assignment to application level variables through the AppVarAccessor is not allowed."
         raise AttributeError(errmsg)
-
-    def perform_read(self, instance: object, owner: type) -> Any:
-        """
-            Overloadable hook used by derived classes to fetch the value for the given variable.
-        """
-        raise NotImplementedError("Derived classes must implement 'perform_read'")
 
 
 

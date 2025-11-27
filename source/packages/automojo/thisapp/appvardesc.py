@@ -1,5 +1,5 @@
 
-from typing import Any, Optional, Protocol, Union
+from typing import Any, Callable, Optional, Protocol, Union
 
 import enum
 import re
@@ -68,10 +68,7 @@ def assert_variable_name(var_name: str) -> str:
     return var_name
 
 
-class ValueConverter(Protocol):
-    def __call__(self, string_value: str) -> Any:
-        return
-
+ValueConverter = Callable[[str], Any]
 
 class VariableSource(enum.Flag):
     NONE = 0

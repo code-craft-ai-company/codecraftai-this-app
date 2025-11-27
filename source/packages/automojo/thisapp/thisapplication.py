@@ -11,7 +11,7 @@ __copyright__ = "Copyright 2025, Automation Mojo LLC"
 __credits__ = []
 
 
-from typing import Any, Optional, Union
+from typing import Any, Callable, Optional, Union
 
 import os
 
@@ -22,14 +22,15 @@ from automojo.errors.exceptions import SemanticError
 from automojo.thisapp.appvardesc import AppVarDesc, VariableSource, ValueConverter
 from automojo.thisapp.appvarset import AppVarSet
 
+ContextInsertCallable = Callable[[str, Any], Any]
 
 class ThisApplication:
     """
         Represents a single point of service for interacting with the application presence.
     """
 
-    def __init__(self, *, name: str, presence_dir: str, settings_file: str, extension_modules: str, logger_name: str,
-                 log_basename: str, log_directory: str, service_name: str, context_insert, **other):
+    def __init__(self, *, name: str, logger_name: str, log_basename: str, presence_dir: str, log_directory: str,
+                 settings_file: str, extensions: str, service_name: str, context_insert: ContextInsertCallable, **other):
         """
             Constructs an `ThisApplication` object.
 
@@ -49,7 +50,7 @@ class ThisApplication:
         self._name = name
         self._presence_dir = presence_dir
         self._settings_file = settings_file
-        self._extension_modules = extension_modules
+        self._extensions = extensions
         self._logger_name = logger_name
         self._log_basename = log_basename
         self._log_directory = log_directory
@@ -84,8 +85,8 @@ class ThisApplication:
         return self._settings_file
     
     @property
-    def extension_modules(self):
-        return self._extension_modules
+    def extensions(self):
+        return self._extensions
     
     @property
     def logger_name(self):

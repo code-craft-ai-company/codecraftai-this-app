@@ -17,7 +17,6 @@ import os
 
 from automojo.errors.exceptions import SemanticError
 
-from automojo.thisapp.personavariables import PersonaVariablesDesc
 
 EXTENSION_MODULES_SEP = ";"
 
@@ -34,8 +33,8 @@ class AppPersona:
     AP_SERVICE_NAME = None
 
 
-def establish_app_persona(*, name: str, logger_name: str, log_basename: str, log_directory: Optional[str]=None,
-                          presence_dir: Optional[str]=None, settings_file: Optional[str]=None,
+def establish_app_persona(*, name: str, logger_name: str, log_basename: str, presence_dir: Optional[str]=None,
+                          log_directory: Optional[str]=None, settings_file: Optional[str]=None,
                           extensions: Optional[str]=None, service_name: Optional[str]=None, **other):
     
     AppPersona.AP_NAME = name
@@ -71,15 +70,8 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, log
         errmsg = "The singleton 'wellknown.THISAPPLICATION_SINGLETON' must not be set when calling 'establish_app_persona'"
         raise SemanticError(errmsg)
     
-    this_app = ThisApplication()
-
-    this_app.override_variable_value(PersonaVariablesDesc.AM_NAME, AppPersona.AP_NAME)
-    this_app.override_variable_value(PersonaVariablesDesc.AM_LOGGER_NAME, AppPersona.AP_LOGGER_NAME)
-    this_app.override_variable_value(PersonaVariablesDesc.AM_LOG_BASENAME, AppPersona.AP_LOG_BASENAME)
-    this_app.override_variable_value(PersonaVariablesDesc.AM_LOG_DIRECTORY, AppPersona.AP_LOG_DIRECTORY)
-    this_app.override_variable_value(PersonaVariablesDesc.AM_PRESENCE_DIRECTORY, AppPersona.AP_PRESENCE_DIR)
-    this_app.override_variable_value(PersonaVariablesDesc.AM_SERVICE_NAME, AppPersona.AP_SERVICE_NAME)
-    this_app.override_variable_value(PersonaVariablesDesc.AM_EXTENSIONS, AppPersona.AP_EXTENSIONS)
+    this_app = ThisApplication(name=name, logger_name=logger_name, log_basename=log_basename,
+                               log_directory=AppPersona.AP_LOG_DIRECTORY)
 
     wellknown.SINGLETON_LOCK.acquire()
     try:
