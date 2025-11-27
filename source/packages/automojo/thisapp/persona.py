@@ -35,8 +35,8 @@ class AppPersona:
 
 
 def establish_app_persona(*, name: str, logger_name: str, log_basename: str, log_directory: Optional[str]=None,
-                      presence_dir: Optional[str]=None, settings_file: Optional[str]=None,
-                      extensions: Optional[str]=None, service_name: Optional[str]=None, **other):
+                          presence_dir: Optional[str]=None, settings_file: Optional[str]=None,
+                          extensions: Optional[str]=None, service_name: Optional[str]=None, **other):
     
     AppPersona.AP_NAME = name
     AppPersona.AP_LOGGER_NAME = logger_name
@@ -76,7 +76,9 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, log
     this_app.override_variable_value(PersonaVariableDesc.AM_NAME, AppPersona.AP_NAME)
     this_app.override_variable_value(PersonaVariableDesc.AM_LOGGER_NAME, AppPersona.AP_LOGGER_NAME)
     this_app.override_variable_value(PersonaVariableDesc.AM_LOG_BASENAME, AppPersona.AP_LOG_BASENAME)
+    this_app.override_variable_value(PersonaVariableDesc.AM_LOG_DIRECTORY, AppPersona.AP_LOG_DIRECTORY)
     this_app.override_variable_value(PersonaVariableDesc.AM_PRESENCE_DIRECTORY, AppPersona.AP_PRESENCE_DIR)
+    this_app.override_variable_value(PersonaVariableDesc.AM_SERVICE_NAME, AppPersona.AP_SERVICE_NAME)
     this_app.override_variable_value(PersonaVariableDesc.AM_EXTENSIONS, AppPersona.AP_EXTENSIONS)
 
     wellknown.SINGLETON_LOCK.acquire()
