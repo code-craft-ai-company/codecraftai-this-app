@@ -324,7 +324,7 @@ def setup_environment_main():
         
         os.chdir(prev_dir)
 
-        if platform.system() != "Windows):
+        if platform.system() != "Windows":
             customize_activation_script(ACTIVATE_SCRIPT, ENV_FILE, CUSTOM_CLI_ALIAS, CUSTOM_CLI_ENTRY_SCRIPT)
         else:
             customize_activation_script_windows(ACTIVATE_SCRIPT, ENV_FILE, CUSTOM_CLI_ALIAS, CUSTOM_CLI_ENTRY_SCRIPT)

@@ -3,7 +3,7 @@ name = "automojo-this-app"
 description = "Automation Mojo - This-App"
 version = "0.0.1"
 authors = [
-    {name = "Myron Walker", email = "automationx@automationmojo.com"},
+    "Myron Walker<automationx@automationmojo.com>",
 ]
 readme = "README.rst"
 license = "LICENSE.txt"
@@ -19,6 +19,7 @@ packages = [{include="automojo", from="source/packages"}]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
+automojo-errors = { git = "https://github.com/automationmojo/automojo-errors.git", branch = "main" }
 
 [tool.poetry.group.dev.dependencies]
 
