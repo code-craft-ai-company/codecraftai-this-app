@@ -1,14 +1,8 @@
-=======================
-python-package-template
-=======================
-This is a template repository that can be used to quickly create a python package project.
-
-=========================
-Features of this Template
-=========================
-* Machine Setup
-* Virtual Environment Setup (Poetry)
-* PyPi Publishing
+==================================
+Automation Mojo - This-App Package
+==================================
+The Automation Mojo - This-App package provides python applications a powerful way to create a presence
+on a host and to work with environment variables and settings.
 
 ========================
 How to Use This Template
