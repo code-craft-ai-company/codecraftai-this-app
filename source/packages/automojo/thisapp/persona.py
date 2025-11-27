@@ -19,6 +19,7 @@ from enum import Enum
 
 from automojo.errors.exceptions import SemanticError
 
+from automojo.thisapp.thisapplication import ThisApplication, ContextInsertCallable
 
 EXTENSION_MODULES_SEP = ";"
 
@@ -44,7 +45,8 @@ class PersonaContextPaths(str, Enum):
 
 def establish_app_persona(*, name: str, logger_name: str, log_basename: str, presence_dir: Optional[str]=None,
                           log_directory: Optional[str]=None, settings_file: Optional[str]=None,
-                          extensions: Optional[str]=None, service_name: Optional[str]=None, **other):
+                          extensions: Optional[str]=None, service_name: Optional[str]=None,
+                          context_insert: Optional[ContextInsertCallable]=None, **other):
     
     AppPersona.AP_NAME = name
     AppPersona.AP_LOGGER_NAME = logger_name
@@ -72,15 +74,16 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, pre
     AppPersona.AP_EXTENSIONS = extensions
     AppPersona.AP_SERVICE_NAME = service_name
     
-    from automojo.thisapp.thisapplication import ThisApplication
     from automojo.thisapp import wellknown
 
     if wellknown.THISAPPLICATION_SINGLETON is not None:
         errmsg = "The singleton 'wellknown.THISAPPLICATION_SINGLETON' must not be set when calling 'establish_app_persona'"
         raise SemanticError(errmsg)
     
-    this_app = ThisApplication(name=name, logger_name=logger_name, log_basename=log_basename,
-                               log_directory=AppPersona.AP_LOG_DIRECTORY)
+    this_app = ThisApplication(name=name, logger_name=logger_name, log_basename=log_basename, presence_dir=AppPersona.AP_PRESENCE_DIR,
+                               log_directory=AppPersona.AP_LOG_DIRECTORY, settings_file=AppPersona.AP_SETTINGS_FILENAME,
+                               extensions=AppPersona.AP_EXTENSIONS, service_name=AppPersona.AP_SERVICE_NAME,
+                               context_insert=context_insert)
 
     wellknown.SINGLETON_LOCK.acquire()
     try:
