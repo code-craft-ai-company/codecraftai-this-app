@@ -15,6 +15,10 @@ from typing import Optional
 
 import os
 
+from automojo.errors.exceptions import SemanticError
+
+from automojo.thisapp.personavariables import PersonaVariableDesc
+
 EXTENSION_MODULES_SEP = ";"
 
 class AppPersona:
@@ -60,4 +64,25 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, log
     AppPersona.AP_EXTENSIONS = extensions
     AppPersona.AP_SERVICE_NAME = service_name
     
+    from automojo.thisapp.thisapplication import ThisApplication
+    from automojo.thisapp import wellknown
+
+    if wellknown.THISAPPLICATION_SINGLETON is not None:
+        errmsg = "The singleton 'wellknown.THISAPPLICATION_SINGLETON' must not be set when calling 'establish_app_persona'"
+        raise SemanticError(errmsg)
+    
+    this_app = ThisApplication()
+
+    this_app.override_variable_value(PersonaVariableDesc.AM_NAME, AppPersona.AP_NAME)
+    this_app.override_variable_value(PersonaVariableDesc.AM_LOGGER_NAME, AppPersona.AP_LOGGER_NAME)
+    this_app.override_variable_value(PersonaVariableDesc.AM_LOG_BASENAME, AppPersona.AP_LOG_BASENAME)
+    this_app.override_variable_value(PersonaVariableDesc.AM_PRESENCE_DIRECTORY, AppPersona.AP_PRESENCE_DIR)
+    this_app.override_variable_value(PersonaVariableDesc.AM_EXTENSIONS, AppPersona.AP_EXTENSIONS)
+
+    wellknown.SINGLETON_LOCK.acquire()
+    try:
+        wellknown.THISAPPLICATION_SINGLETON = this_app
+    finally:
+        wellknown.SINGLETON_LOCK.release()
+
     return

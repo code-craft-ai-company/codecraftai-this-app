@@ -13,5 +13,5 @@ class PersonaVariableDesc:
     
     AM_SETTINGS_FILE = AppVarDesc()
 
-    AM_EXTENSION_MODULES = AppVarDesc(context_path=PersonaContextPaths.PRESENCE_EXTENSIONS)
+    AM_EXTENSIONS = AppVarDesc(context_path=PersonaContextPaths.PRESENCE_EXTENSIONS)
     AM_SERVICE_NAME = AppVarDesc()
