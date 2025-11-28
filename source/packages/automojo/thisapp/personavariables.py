@@ -1,10 +1,11 @@
 
 
 from automojo.thisapp.appvardesc import AppVarDesc, VariableSource
+from automojo.thisapp.appvarset import AppVarSet
 from automojo.thisapp.appvaraccessor import AppVarAccessor
 
 
-class PersonaVariablesDesc:
+class PersonaVariablesDesc(AppVarSet):
 
     AP_NAME = AppVarDesc(source=VariableSource.NONE)
 
