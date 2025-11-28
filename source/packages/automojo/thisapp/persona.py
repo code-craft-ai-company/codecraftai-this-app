@@ -21,7 +21,9 @@ from automojo.errors.exceptions import SemanticError
 
 from automojo.thisapp.thisapplication import ThisApplication, ContextInsertCallable
 
+
 EXTENSION_MODULES_SEP = ";"
+
 
 class AppPersona:
 
@@ -34,13 +36,6 @@ class AppPersona:
     
     AP_EXTENSIONS = None
     AP_SERVICE_NAME = None
-
-
-class PersonaContextPaths(str, Enum):
-
-    PRESENCE_NAME = "/environment/presence/name"
-    PRESENCE_HOME_DIRECTORY = "/environment/presence/home"
-    PRESENCE_EXTENSIONS = "/environment/presence/extensions"
 
 
 def establish_app_persona(*, name: str, logger_name: str, log_basename: str, presence_dir: Optional[str]=None,
