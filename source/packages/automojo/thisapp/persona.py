@@ -20,6 +20,7 @@ from enum import Enum
 from automojo.errors.exceptions import SemanticError
 
 from automojo.thisapp.thisapplication import ThisApplication, ContextInsertCallable
+from automojo.thisapp.personavariables import PersonaVariablesDesc
 
 
 EXTENSION_MODULES_SEP = ";"
@@ -85,5 +86,14 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, pre
         wellknown.THISAPPLICATION_SINGLETON = this_app
     finally:
         wellknown.SINGLETON_LOCK.release()
+
+    this_app.override_variable_value(PersonaVariablesDesc.AP_NAME, this_app.name)
+    this_app.override_variable_value(PersonaVariablesDesc.AP_LOGGER_NAME, this_app.logger_name)
+    this_app.override_variable_value(PersonaVariablesDesc.AP_LOG_BASENAME, this_app.log_basename)
+    this_app.override_variable_value(PersonaVariablesDesc.AP_LOG_DIRECTORY, this_app.log_directory)
+    this_app.override_variable_value(PersonaVariablesDesc.AP_PRESENCE_DIR, this_app.presence_dir)
+    this_app.override_variable_value(PersonaVariablesDesc.AP_SETTINGS_FILENAME, this_app.settings_file)
+    this_app.override_variable_value(PersonaVariablesDesc.AP_EXTENSIONS, this_app.extensions)
+    this_app.override_variable_value(PersonaVariablesDesc.AP_SERVICE_NAME, this_app.service_name)
 
     return
