@@ -15,16 +15,12 @@ from typing import Optional
 
 import os
 
-from enum import Enum
-
 from automojo.errors.exceptions import SemanticError
 
 from automojo.thisapp.thisapplication import ThisApplication, ContextInsertCallable
 from automojo.thisapp.personavariables import PersonaVariablesDesc
 
-
 EXTENSION_MODULES_SEP = ";"
-
 
 class AppPersona:
 
@@ -39,61 +35,67 @@ class AppPersona:
     AP_SERVICE_NAME = None
 
 
+APP_PERSONA_ESTABLISHED = False
+
 def establish_app_persona(*, name: str, logger_name: str, log_basename: str, presence_dir: Optional[str]=None,
                           log_directory: Optional[str]=None, settings_file: Optional[str]=None,
                           extensions: Optional[str]=None, service_name: Optional[str]=None,
                           context_insert: Optional[ContextInsertCallable]=None, **other):
     
-    AppPersona.AP_NAME = name
-    AppPersona.AP_LOGGER_NAME = logger_name
-    AppPersona.AP_LOG_BASENAME = log_basename
-
-    if presence_dir is not None:
-        AppPersona.AP_PRESENCE_DIR = presence_dir
-    else:
-        AppPersona.AP_PRESENCE_DIR = os.path.join("~", name.lower())
-
-    if log_directory is not None:
-        AppPersona.AP_LOG_DIRECTORY = log_directory
-    else:
-        AppPersona.AP_LOG_DIRECTORY = os.path.join(AppPersona.AP_PRESENCE_DIR, "logs")
+    if not APP_PERSONA_ESTABLISHED:
+        APP_PERSONA_ESTABLISHED = True
     
-    if settings_file is not None:
-        # If we are only given the filename, the file must be located in the presence directory
-        if os.path.basename(settings_file) == settings_file:
-            AppPersona.AP_SETTINGS_FILENAME = os.path.join(AppPersona.AP_PRESENCE_DIR, settings_file)
+        AppPersona.AP_NAME = name
+        AppPersona.AP_LOGGER_NAME = logger_name
+        AppPersona.AP_LOG_BASENAME = log_basename
+
+        if presence_dir is not None:
+            AppPersona.AP_PRESENCE_DIR = presence_dir
         else:
-            AppPersona.AP_SETTINGS_FILENAME = os.path.abspath(os.path.expandvars(os.path.expanduser(settings_file)))
-    else:
-        AppPersona.AP_SETTINGS_FILENAME = os.path.join(AppPersona.AP_PRESENCE_DIR, 'settings.config')
+            AppPersona.AP_PRESENCE_DIR = os.path.join("~", name.lower())
 
-    AppPersona.AP_EXTENSIONS = extensions
-    AppPersona.AP_SERVICE_NAME = service_name
-    
-    from automojo.thisapp import wellknown
+        if log_directory is not None:
+            AppPersona.AP_LOG_DIRECTORY = log_directory
+        else:
+            AppPersona.AP_LOG_DIRECTORY = os.path.join(AppPersona.AP_PRESENCE_DIR, "logs")
+        
+        if settings_file is not None:
+            # If we are only given the filename, the file must be located in the presence directory
+            if os.path.basename(settings_file) == settings_file:
+                AppPersona.AP_SETTINGS_FILENAME = os.path.join(AppPersona.AP_PRESENCE_DIR, settings_file)
+            else:
+                AppPersona.AP_SETTINGS_FILENAME = os.path.abspath(os.path.expandvars(os.path.expanduser(settings_file)))
+        else:
+            AppPersona.AP_SETTINGS_FILENAME = os.path.join(AppPersona.AP_PRESENCE_DIR, 'settings.config')
 
-    if wellknown.THISAPPLICATION_SINGLETON is not None:
-        errmsg = "The singleton 'wellknown.THISAPPLICATION_SINGLETON' must not be set when calling 'establish_app_persona'"
-        raise SemanticError(errmsg)
-    
-    this_app = ThisApplication(name=name, logger_name=logger_name, log_basename=log_basename, presence_dir=AppPersona.AP_PRESENCE_DIR,
-                               log_directory=AppPersona.AP_LOG_DIRECTORY, settings_file=AppPersona.AP_SETTINGS_FILENAME,
-                               extensions=AppPersona.AP_EXTENSIONS, service_name=AppPersona.AP_SERVICE_NAME,
-                               context_insert=context_insert)
+        AppPersona.AP_EXTENSIONS = extensions
+        AppPersona.AP_SERVICE_NAME = service_name
+        
+        from automojo.thisapp.thisapplication import ThisApplication
+        from automojo.thisapp import wellknown
 
-    wellknown.SINGLETON_LOCK.acquire()
-    try:
-        wellknown.THISAPPLICATION_SINGLETON = this_app
-    finally:
-        wellknown.SINGLETON_LOCK.release()
+        if wellknown.THISAPPLICATION_SINGLETON is not None:
+            errmsg = "The singleton 'wellknown.THISAPPLICATION_SINGLETON' must not be set when calling 'establish_app_persona'"
+            raise SemanticError(errmsg)
+        
+        this_app = ThisApplication(name=name, logger_name=logger_name, log_basename=log_basename, presence_dir=AppPersona.AP_PRESENCE_DIR,
+                                   log_directory=AppPersona.AP_LOG_DIRECTORY, settings_file=AppPersona.AP_SETTINGS_FILENAME,
+                                   extensions=AppPersona.AP_EXTENSIONS, service_name=AppPersona.AP_SERVICE_NAME,
+                                   context_insert=context_insert)
 
-    this_app.override_variable_value(PersonaVariablesDesc.AP_NAME, this_app.name)
-    this_app.override_variable_value(PersonaVariablesDesc.AP_LOGGER_NAME, this_app.logger_name)
-    this_app.override_variable_value(PersonaVariablesDesc.AP_LOG_BASENAME, this_app.log_basename)
-    this_app.override_variable_value(PersonaVariablesDesc.AP_LOG_DIRECTORY, this_app.log_directory)
-    this_app.override_variable_value(PersonaVariablesDesc.AP_PRESENCE_DIR, this_app.presence_dir)
-    this_app.override_variable_value(PersonaVariablesDesc.AP_SETTINGS_FILENAME, this_app.settings_file)
-    this_app.override_variable_value(PersonaVariablesDesc.AP_EXTENSIONS, this_app.extensions)
-    this_app.override_variable_value(PersonaVariablesDesc.AP_SERVICE_NAME, this_app.service_name)
+        this_app.override_variable_value(PersonaVariablesDesc.AP_NAME, this_app.name)
+        this_app.override_variable_value(PersonaVariablesDesc.AP_LOGGER_NAME, AppPersona.AP_LOGGER_NAME)
+        this_app.override_variable_value(PersonaVariablesDesc.AP_LOG_BASENAME, AppPersona.AP_LOG_BASENAME)
+        this_app.override_variable_value(PersonaVariablesDesc.AP_LOG_DIRECTORY, AppPersona.AP_LOG_DIRECTORY)
+        this_app.override_variable_value(PersonaVariablesDesc.AP_PRESENCE_DIR, AppPersona.AP_PRESENCE_DIR)
+        this_app.override_variable_value(PersonaVariablesDesc.AP_SERVICE_NAME, AppPersona.AP_SERVICE_NAME)
+        this_app.override_variable_value(PersonaVariablesDesc.AP_EXTENSIONS, AppPersona.AP_EXTENSIONS)        
+
+        wellknown.SINGLETON_LOCK.acquire()
+        try:
+            wellknown.THISAPPLICATION_SINGLETON = this_app
+        finally:
+            wellknown.SINGLETON_LOCK.release()
+
 
     return
