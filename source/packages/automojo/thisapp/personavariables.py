@@ -7,30 +7,30 @@ from automojo.thisapp.appvaraccessor import AppVarAccessor
 
 class PersonaVariablesDesc(AppVarSet):
 
-    AP_NAME = AppVarDesc(source=VariableSource.NONE)
+    AM_NAME = AppVarDesc(source=VariableSource.NONE)
 
-    AP_LOGGER_NAME = AppVarDesc(source=VariableSource.NONE)
-    AP_LOG_BASENAME = AppVarDesc(source=VariableSource.NONE)
-    AP_PRESENCE_DIR = AppVarDesc(source=VariableSource.NONE)
-    AP_LOG_DIRECTORY = AppVarDesc(source=VariableSource.NONE)
+    AM_LOGGER_NAME = AppVarDesc(source=VariableSource.NONE)
+    AM_LOG_BASENAME = AppVarDesc(source=VariableSource.NONE)
+    AM_PRESENCE_DIR = AppVarDesc(source=VariableSource.NONE)
+    AM_LOG_DIRECTORY = AppVarDesc(source=VariableSource.NONE)
     
-    AP_SETTINGS_FILENAME = AppVarDesc(source=VariableSource.NONE)
+    AM_SETTINGS_FILENAME = AppVarDesc(source=VariableSource.NONE)
     
-    AP_EXTENSIONS = AppVarDesc(source=VariableSource.NONE)
-    AP_SERVICE_NAME = AppVarDesc(source=VariableSource.NONE)
+    AM_EXTENSIONS = AppVarDesc(source=VariableSource.NONE)
+    AM_SERVICE_NAME = AppVarDesc(source=VariableSource.NONE)
 
 
 
 class PersonaVariables:
 
-    AP_NAME = AppVarAccessor(PersonaVariablesDesc.AP_NAME)
+    AM_NAME = AppVarAccessor(PersonaVariablesDesc.AM_NAME)
 
-    AP_LOGGER_NAME = AppVarAccessor(PersonaVariablesDesc.AP_LOGGER_NAME)
-    AP_LOG_BASENAME = AppVarAccessor(PersonaVariablesDesc.AP_LOG_BASENAME)
-    AP_PRESENCE_DIR = AppVarAccessor(PersonaVariablesDesc.AP_PRESENCE_DIR)
-    AP_LOG_DIRECTORY = AppVarAccessor(PersonaVariablesDesc.AP_LOG_DIRECTORY)
+    AM_LOGGER_NAME = AppVarAccessor(PersonaVariablesDesc.AM_LOGGER_NAME)
+    AM_LOG_BASENAME = AppVarAccessor(PersonaVariablesDesc.AM_LOG_BASENAME)
+    AM_PRESENCE_DIR = AppVarAccessor(PersonaVariablesDesc.AM_PRESENCE_DIR)
+    AM_LOG_DIRECTORY = AppVarAccessor(PersonaVariablesDesc.AM_LOG_DIRECTORY)
     
-    AP_SETTINGS_FILENAME = AppVarAccessor(PersonaVariablesDesc.AP_SETTINGS_FILENAME)
+    AM_SETTINGS_FILENAME = AppVarAccessor(PersonaVariablesDesc.AM_SETTINGS_FILENAME)
     
-    AP_EXTENSIONS = AppVarAccessor(PersonaVariablesDesc.AP_EXTENSIONS)
-    AP_SERVICE_NAME = AppVarAccessor(PersonaVariablesDesc.AP_SERVICE_NAME)
+    AM_EXTENSIONS = AppVarAccessor(PersonaVariablesDesc.AM_EXTENSIONS)
+    AM_SERVICE_NAME = AppVarAccessor(PersonaVariablesDesc.AM_SERVICE_NAME)
