@@ -10,17 +10,23 @@ __author__ = "Myron Walker"
 __copyright__ = "Copyright 2025, Automation Mojo LLC"
 __credits__ = []
 
+import logging
 import threading
 
 from automojo.errors.exceptions import SemanticError
 
+from automojo.extension.constants import EXT_MOD_SEP
+from automojo.extension.factory.superfactory import SuperFactory
+
 from automojo.thisapp.thisapplication import ThisApplication
+from automojo.thisapp.personavariables import PersonaVariablesDesc
 
 # NOTE: This code is loaded super early where there is likely to only be a single thread
 #       so there is likely no need for any locking.
 
 
 THISAPPLICATION_SINGLETON = None
+EXTENSION_SUPER_FACTORY = None
 
 SINGLETON_LOCK = threading.RLock()
 
@@ -50,3 +56,33 @@ def ThisApplicationSingleton() -> ThisApplication:
 
     return THISAPPLICATION_SINGLETON
 
+def ConfiguredSuperFactorySingleton():
+
+    global CONFIGURED_SUPER_FACTORY
+
+    SINGLETON_LOCK.acquire()
+    try:
+        if CONFIGURED_SUPER_FACTORY is None:
+            extension_modules = []
+
+            from automojo.thisapp import persona
+
+            if not persona.APP_PERSONA_ESTABLISHED:
+                warnmsg = "IMPORTANT!!! You should establish application presence settings by calling " \
+                          "`establish_presence_settings` before attempting to use the extensibility superfactory singleton."
+                logger = logging.getLogger()
+                logger.warn(warnmsg)
+
+            this_app = ThisApplicationSingleton()
+
+            extension_modules_value: str = this_app.get_variable_value(PersonaVariablesDesc.AM_EXTENSIONS)
+            extension_modules_value.strip()
+
+            if len(extension_modules_value) > 0:
+                extension_modules = extension_modules_value.split(EXT_MOD_SEP)
+            
+            CONFIGURED_SUPER_FACTORY = SuperFactory(extension_modules)
+    finally:
+        SINGLETON_LOCK.release()
+
+    return CONFIGURED_SUPER_FACTORY
