@@ -11,7 +11,7 @@ class AppVarAccessor:
         the same time enforcing rules around how variable values are overriden.
     """
 
-    this_app = None
+    _this_app = None
 
     def __init__(self, var_desc: AppVarDesc):
         """
@@ -28,13 +28,16 @@ class AppVarAccessor:
 
         self._owner: Optional[type] = None
 
-        this_type = type(self)
-
-        if this_type.this_app is None:
-            from automojo.thisapp.wellknown import ThisApplicationSingleton
-            this_type.this_app = ThisApplicationSingleton()
-
         return
+
+    @property
+    def this_app(self):
+        this_type = type(self)
+        if this_type._this_app is None:
+            from automojo.thisapp.wellknown import ThisApplicationSingleton
+            this_type._this_app = ThisApplicationSingleton()
+        return self._this_app
+
 
     def __set_name__(self, owner: type, name: str) -> None:
         """

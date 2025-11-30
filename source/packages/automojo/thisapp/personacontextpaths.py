@@ -1,7 +1,7 @@
 
 from enum import Enum
 
-class PersonaContextPaths(str, Enum):
+class PersonaContextPaths:
 
     PRESENCE_NAME = "/environment/presence/name"
     PRESENCE_HOME_DIRECTORY = "/environment/presence/home"
