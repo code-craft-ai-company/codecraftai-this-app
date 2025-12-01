@@ -42,6 +42,8 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, pre
                           extensions: Optional[str]=None, service_name: Optional[str]=None,
                           context_insert: Optional[ContextInsertCallable]=None, **other):
     
+    global APP_PERSONA_ESTABLISHED
+
     if not APP_PERSONA_ESTABLISHED:
         APP_PERSONA_ESTABLISHED = True
     
