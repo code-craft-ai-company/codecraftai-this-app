@@ -76,9 +76,9 @@ def ConfiguredSuperFactorySingleton():
             this_app = ThisApplicationSingleton()
 
             extension_modules_value: str = this_app.get_variable_value(PersonaVariablesDesc.AM_EXTENSIONS)
-            extension_modules_value.strip()
-
-            if len(extension_modules_value) > 0:
+            
+            if extension_modules_value is not None and len(extension_modules_value) > 0:
+                extension_modules_value.strip()
                 extension_modules = extension_modules_value.split(EXT_MOD_SEP)
             
             CONFIGURED_SUPER_FACTORY = SuperFactory(extension_modules)
