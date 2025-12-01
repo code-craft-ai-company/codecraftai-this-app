@@ -3,30 +3,30 @@ AI Agents working in this repository should refer to themselves as an agent name
 
 # Project Overview
 
-# Testing Conventions
-Use this section to describe the test framework that should be used for testing code in this repository.  You can instruct the Agent on how to write tests for this repository by using the
-following helper paragraphs:
+The **automojo-this-app** package is a foundational Python library that manages application presence and configuration for the Automation Mojo framework. It provides a lightweight configuration management system that allows applications to establish their presence on a user's machine with customizable settings.
 
-This repository utilizes the 'unittest' test framework.  Detailed information about how to
-utilize the 'unittest' test framework with this code base are located in the [Testing Frameworks - UnitTest](userguide/10-04-01-testing-frameworks-unittest.rst)
+## Purpose
+The package serves as the foundational configuration layer for Automation Mojo applications and tools, handling:
+- Application identity and naming
+- Configuration file discovery and loading
+- Environment variable management with precedence rules, for presence variables
+- Extensible module loading
+- Machine-specific presence establishment
 
-This repository utilizes the 'pytest' test framework.  Detailed information about how to
-utilize the 'pytest' test framework with this code base are located in the [Testing Frameworks - PyTest](userguide/10-04-01-testing-frameworks-pytest.rst)
+## Test Granularity
+Tests should verify the functionality of individual components or functions in isolation, focusing on a single aspect of the code for clarity and maintainability.
 
-This repository utilizes the 'testbase' test framework.  Detailed information about how to
-utilize the 'testbase' test framework with this code base are located in the [Testing Frameworks - TestBase](userguide/10-04-01-testing-frameworks-testbase.rst)
+Avoid composite tests that validate multiple components or functions in a series of assertions, as they lack proper isolation and can miss checks when an assertion fails.
+
+Use Python's `unittest` framework with `setUp` and `tearDown` methods to establish shared conditions across tests while maintaining separation of concerns.
 
 # Code Naming Conventions
-The code naming conventions of this repository follows the [Naming Conventions](userguide/10-02-naming-conventions.rst) document.
+The code naming conventions of this repository follows the [Automation Mojo Python Naming Conventions](userguide/10-02-naming-conventions.rst)
 
 
 # Code Structure
-The code structure of this repository follows the [Code Organization](userguide/10-01-code-organization.rst) document
+The code structure of this repository follows the [Automation Mojo Python Code Structure Standards](userguide/10-01-code-organization.rst)
 
-Remember to make the test hierarchy match the source hierarchy when adding test files.  For example:
-
-File to test: 'source/packages/automojo/interop/protocols/dns/dnsquestion.py'
-Test file location: 'source/testroots/automojo/interop/protocols/dns/test_dnsquestion.py'
 
 # Coding Standards
 The code in this repository is meant to be utilized by testing tools and test frameworks.  Therefore, the code must prioritize:
@@ -49,6 +49,25 @@ When checking out the code for this repository in order to test changes, agents 
 * run the 'development/setup-envrionment' script in order to create the virtual environment.
 
 # Project Specific Rules
+
+
+# Running Tests
+In order to run the unittest tests, you must first enter the virtual environment by running the command:
+
+```
+    source <repository-root>/.venv/bin/activate
+```
+
+When you setup the environment, the '.venv/bin/activate' script is modified so that it will pull in the appropriate environment
+variables from the '.env' file.
+
+For running the 'unittest' tests located under the folder '<repository-root>/source/tests', use the command:
+
+```
+    cd <repository-root>
+
+    python -m unittest discover -s source/tests -p "test_*.py"
+```
 
 
 # Pull Request Guidelines
