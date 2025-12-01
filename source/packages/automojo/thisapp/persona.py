@@ -82,7 +82,7 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, pre
         this_app = ThisApplication(name=name, logger_name=logger_name, log_basename=log_basename, presence_dir=AppPersona.AM_PRESENCE_DIR,
                                    log_directory=AppPersona.AM_LOG_DIRECTORY, settings_file=AppPersona.AM_SETTINGS_FILENAME,
                                    extensions=AppPersona.AM_EXTENSIONS, service_name=AppPersona.AM_SERVICE_NAME,
-                                   context_insert=context_insert)
+                                   context_insert=context_insert, from_establish_app_persona=True)
 
         wellknown.SINGLETON_LOCK.acquire()
         try:
