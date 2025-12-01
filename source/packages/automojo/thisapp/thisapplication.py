@@ -140,7 +140,10 @@ class ThisApplication:
                 vval = os.environ[vname]
             elif variable_desc.source & VariableSource.SETTINGS and sname in self._config_parser:
                 conf_section = self._config_parser[sname]
-                vval = conf_section[vname]
+                if vname in conf_section:
+                    vval = conf_section[vname]
+                else:
+                    vval = default_found
             else:
                 vval = default_found
 
