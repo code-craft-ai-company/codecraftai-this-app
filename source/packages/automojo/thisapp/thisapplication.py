@@ -105,7 +105,7 @@ class ThisApplication:
         return self._service_name
 
 
-    def get_variable_value(self, variable_desc: AppVarDesc, default: Optional[str]=None, converter: Optional[ValueConverter] = None) -> Union[str, Any]:
+    def get_variable_value(self, variable_desc: AppVarDesc, default: Optional[str]=..., converter: Optional[ValueConverter] = None) -> Union[str, Any]:
         """
             Gets the value of an application variable using the settings order of precedence.  The order of presence is:
               - If the variable value has been overridden at the application level, use the override value
