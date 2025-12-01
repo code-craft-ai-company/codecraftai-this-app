@@ -155,7 +155,7 @@ class ThisApplication:
         return vval
 
 
-    def override_variable_value(self, variable_desc: AppVarDesc, new_value: str):
+    def override_variable_value(self, variable_desc: AppVarDesc, new_value: Any):
         """
             Used to override an application level variable because an input parameter with higher precedence to the settings file
             environment variable was passed.  For example, an input parameter on the commandline that was associated with
@@ -171,7 +171,10 @@ class ThisApplication:
         self._application_variables[vkey] = new_value
         
         if variable_desc.source & VariableSource.ENVIRONMENT and variable_desc.overrides:
-            os.environ[vname] = new_value
+            envval = new_value
+            if not isinstance(new_value, str):
+                envval = str(new_value)
+            os.environ[vname] = envval
         
         if self._context_insert is not None and variable_desc.context_path is not None:
             self._context_insert(variable_desc.context_path, new_value)
