@@ -26,7 +26,7 @@ from automojo.thisapp.personavariables import PersonaVariablesDesc
 
 
 THISAPPLICATION_SINGLETON = None
-EXTENSION_SUPER_FACTORY = None
+CONFIGURED_SUPER_FACTORY = None
 
 SINGLETON_LOCK = threading.RLock()
 
