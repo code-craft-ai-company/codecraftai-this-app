@@ -129,9 +129,9 @@ class ThisApplication:
         if vkey not in self._application_variables:
 
             default_found = None
-            if default is not None:
+            if default is not ...:
                 default_found = default
-            elif variable_desc.default is not None:
+            elif variable_desc.default is not ...:
                 default_found = variable_desc.default
 
             sname = variable_desc.section

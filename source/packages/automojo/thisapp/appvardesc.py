@@ -82,7 +82,7 @@ class AppVarDesc:
         Describes an application variable that is loaded from the settings file or from the environment variables
     """
 
-    def __init__(self, *, section: str='DEFAULT', default: str=None, overrides: bool=True, context_path: Optional[str]=None,
+    def __init__(self, *, section: str='DEFAULT', default: str=..., overrides: bool=True, context_path: Optional[str]=None,
                  source: VariableSource=VariableSource.BOTH, converter: Optional[ValueConverter]=None):
         self._section = assert_section_name(section)
         self._default = default
