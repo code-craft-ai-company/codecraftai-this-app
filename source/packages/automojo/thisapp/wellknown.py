@@ -47,8 +47,9 @@ def ThisApplicationSingleton() -> ThisApplication:
     try:
         if THISAPPLICATION_SINGLETON is None:
 
-            errmsg = "You must call '' early in your application startup to define your application's presence" \
-                     " settings before attempting to use the `ThisApplication` object or its corresponding singleton."
+            errmsg = "You must call 'establish_app_persona' early in your application startup to define " \
+                     "your application's presence settings before attempting to use the `ThisApplication` " \
+                     "object or its corresponding singleton."
             raise SemanticError(errmsg)
 
     finally:
@@ -69,7 +70,8 @@ def ConfiguredSuperFactorySingleton():
 
             if not persona.APP_PERSONA_ESTABLISHED:
                 warnmsg = "IMPORTANT!!! You should establish application presence settings by calling " \
-                          "`establish_presence_settings` before attempting to use the extensibility superfactory singleton."
+                          "`establish_app_persona` before attempting to use the extensibility superfactory " \
+                          "singleton."
                 logger = logging.getLogger()
                 logger.warn(warnmsg)
 
