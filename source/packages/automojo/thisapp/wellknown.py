@@ -86,3 +86,4 @@ def ConfiguredSuperFactorySingleton():
         SINGLETON_LOCK.release()
 
     return CONFIGURED_SUPER_FACTORY
+

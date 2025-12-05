@@ -21,8 +21,8 @@ from automojo.errors.exceptions import SemanticError
 
 from automojo.thisapp.appvardesc import AppVarDesc, VariableSource, ValueConverter
 from automojo.thisapp.appvarset import AppVarSet
+from automojo.thisapp.context import Context
 
-ContextInsertCallable = Callable[[str, Any], Any]
 
 class ThisApplication:
     """
@@ -30,7 +30,7 @@ class ThisApplication:
     """
 
     def __init__(self, *, name: str, logger_name: str, log_basename: str, presence_dir: str, log_directory: str,
-                 settings_file: str, extensions: str, service_name: str, context_insert: ContextInsertCallable, **other):
+                 settings_file: str, extensions: str, service_name: str, **other):
         """
             Constructs an `ThisApplication` object.
 
@@ -61,7 +61,7 @@ class ThisApplication:
         if os.path.exists(self._settings_file):
             self._config_parser.read(self._settings_file)
 
-        self._context_insert =context_insert
+        self._context = Context()
 
         self._startup_variables = {}
         self._startup_variables.update(os.environ)
@@ -73,16 +73,8 @@ class ThisApplication:
         return
     
     @property
-    def name(self):
-        return self._name
-    
-    @property
-    def presence_dir(self):
-        return self._presence_dir
-    
-    @property
-    def settings_file(self):
-        return self._settings_file
+    def context(self):
+        return self._context
     
     @property
     def extensions(self):
@@ -101,8 +93,49 @@ class ThisApplication:
         return self._log_directory
     
     @property
+    def name(self):
+        return self._name
+    
+    @property
+    def presence_dir(self):
+        return self._presence_dir
+    
+    @property
     def service_name(self):
         return self._service_name
+    
+    @property
+    def settings_file(self):
+        return self._settings_file
+
+
+    def context_insert(self, path: str, obj: Any):
+        """
+            Insert an object at the path specified.
+
+            :param path: Path where the object is to be inserted
+            :param obj: The object to insert
+
+            :raises: :class:`ValueError`
+        """
+        self._context.insert(path, obj)
+        return
+
+
+    def context_lookup(self, path: str, default: Optional[Any]=None, raise_error=False) -> Any:
+        """
+            Lookup an object at the path specified.
+
+            :param path: Path where the desired object is located.
+            :param default: Optional default value that should be set and returned
+                            if the lookup fails.
+
+            :returns: The object stored at the specified path.
+
+            :raises: :class:`LookupError`
+        """
+        found_node = self._context.lookup(path, default=default, raise_error=raise_error)
+        return
 
 
     def get_variable_value(self, variable_desc: AppVarDesc, default: Optional[str]=..., converter: Optional[ValueConverter] = None) -> Union[str, Any]:
@@ -179,8 +212,8 @@ class ThisApplication:
                 envval = str(new_value)
             os.environ[vname] = envval
         
-        if self._context_insert is not None and variable_desc.context_path is not None:
-            self._context_insert(variable_desc.context_path, new_value)
+        if variable_desc.context_path is not None:
+            self._context.insert(variable_desc.context_path, new_value)
 
         return
 
@@ -215,7 +248,7 @@ class ThisApplication:
         vval = self.get_variable_value(var_desc)
         
         # If the variable has a designated context location, store the variable
-        if self._context_insert is not None and var_desc.context_path is not None:
-            self._context_insert(var_desc.context_path, vval)
+        if var_desc.context_path is not None:
+            self._context.insert(var_desc.context_path, vval)
 
         return
