@@ -3,20 +3,20 @@
 from automojo.thisapp.appvardesc import AppVarDesc, VariableSource
 from automojo.thisapp.appvarset import AppVarSet
 from automojo.thisapp.appvaraccessor import AppVarAccessor
-
+from automojo.thisapp.contextpaths import ContextPaths
 
 class PersonaVariablesDesc(AppVarSet):
 
-    AM_NAME = AppVarDesc(source=VariableSource.NONE)
+    AM_NAME = AppVarDesc(source=VariableSource.NONE, context_path=ContextPaths.PRESENCE_NAME)
 
     AM_LOGGER_NAME = AppVarDesc(source=VariableSource.NONE)
     AM_LOG_BASENAME = AppVarDesc(source=VariableSource.NONE)
-    AM_PRESENCE_DIR = AppVarDesc(source=VariableSource.NONE)
+    AM_PRESENCE_DIR = AppVarDesc(source=VariableSource.NONE, context_path=ContextPaths.PRESENCE_HOME_DIRECTORY)
     AM_LOG_DIRECTORY = AppVarDesc(source=VariableSource.NONE)
     
     AM_SETTINGS_FILENAME = AppVarDesc(source=VariableSource.NONE)
     
-    AM_EXTENSIONS = AppVarDesc(source=VariableSource.NONE)
+    AM_EXTENSIONS = AppVarDesc(source=VariableSource.NONE, context_path=ContextPaths.PRESENCE_EXTENSIONS)
     AM_SERVICE_NAME = AppVarDesc(source=VariableSource.NONE)
 
 

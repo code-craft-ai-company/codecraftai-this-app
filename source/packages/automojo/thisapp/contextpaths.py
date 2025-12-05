@@ -72,7 +72,7 @@ class ContextPaths(str, Enum):
     PRESENCE_NAME = "/environment/presence/name"
     PRESENCE_HOME_DIRECTORY = "/environment/presence/home"
     PRESENCE_CONFIG_DIRECTORY = "/environment/presence/config"
-    PRESENCE_EXTENSION_MODULES = "/environment/presence/extension-modules"
+    PRESENCE_EXTENSIONS = "/environment/presence/extensions"
     
     OUTPUT_DIRECTORY = "/environment/output_directory"
     OUTPUT_DIRECTORY_IS_SHARED = "/environment/output_directory_is_shared"
