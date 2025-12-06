@@ -73,7 +73,7 @@ def ConfiguredSuperFactorySingleton():
                           "`establish_app_persona` before attempting to use the extensibility superfactory " \
                           "singleton."
                 logger = logging.getLogger()
-                logger.warn(warnmsg)
+                logger.warning(warnmsg)
 
             this_app = ThisApplicationSingleton()
 

@@ -43,7 +43,7 @@ class ThisApplication:
 
         if "from_establish_app_persona" not in other:
             errmsg = "The `ThisApplication` singleton object should not be instantiated directly. Call `establish_app_persona` " \
-                     "to establish application wide presence settings and then use the wellknown singlton to access the application presence" \
+                     "to establish application wide presence settings and then use the wellknown singleton to access the application presence" \
                      "instance."
             raise SemanticError(errmsg)
 
@@ -148,7 +148,7 @@ class ThisApplication:
 
             :param variable_desc: A description of the variable being retrieved.
             :param default: The default value to return if the variable is not found.
-            :param converter: A lamba expression of function that will convert the str value to a consumable python type.
+            :param converter: A lambda expression of function that will convert the str value to a consumable python type.
 
             :returns: A str value or type if a converter was passed.
 

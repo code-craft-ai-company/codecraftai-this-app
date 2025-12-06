@@ -1,6 +1,8 @@
 
 from typing import List
 
+from automojo.thisapp.appvardesc import AppVarDesc
+
 class AppVarSet:
     """
         Class that serves as a base class for variable declaration classes. 
@@ -20,9 +22,9 @@ class AppVarSet:
                 continue
 
             for attr_name, attr_value in base_cls.__dict__.items():
-                if isinstance(attr_value, AppVarSet):
+                if isinstance(attr_value, AppVarDesc):
                     variables_by_name[attr_name] = attr_value
 
-        rval: List[AppVarSet] = list(variables_by_name.values())
+        rval: List[AppVarDesc] = list(variables_by_name.values())
 
         return rval

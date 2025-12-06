@@ -1,5 +1,5 @@
 """
-.. module:: constants
+.. module:: persona
     :platform: Darwin, Linux, Unix, Windows
     :synopsis: The settings in this module help to establish the persona of the application, it
                lets applications say who they are and where they want to live on the host.
@@ -17,7 +17,7 @@ import os
 
 from automojo.errors.exceptions import SemanticError
 
-from automojo.thisapp.thisapplication import ThisApplication, ContextInsertCallable
+from automojo.thisapp.thisapplication import ThisApplication
 from automojo.thisapp.personavariables import PersonaVariablesDesc
 
 EXTENSION_MODULES_SEP = ";"
@@ -39,8 +39,7 @@ APP_PERSONA_ESTABLISHED = False
 
 def establish_app_persona(*, name: str, logger_name: str, log_basename: str, presence_dir: Optional[str]=None,
                           log_directory: Optional[str]=None, settings_file: Optional[str]=None,
-                          extensions: Optional[str]=None, service_name: Optional[str]=None,
-                          context_insert: Optional[ContextInsertCallable]=None, **other):
+                          extensions: Optional[str]=None, service_name: Optional[str]=None, **other):
     
     global APP_PERSONA_ESTABLISHED
 
@@ -82,7 +81,7 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, pre
         this_app = ThisApplication(name=name, logger_name=logger_name, log_basename=log_basename, presence_dir=AppPersona.AM_PRESENCE_DIR,
                                    log_directory=AppPersona.AM_LOG_DIRECTORY, settings_file=AppPersona.AM_SETTINGS_FILENAME,
                                    extensions=AppPersona.AM_EXTENSIONS, service_name=AppPersona.AM_SERVICE_NAME,
-                                   context_insert=context_insert, from_establish_app_persona=True)
+                                   from_establish_app_persona=True)
 
         wellknown.SINGLETON_LOCK.acquire()
         try:
