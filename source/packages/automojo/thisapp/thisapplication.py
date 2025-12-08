@@ -161,7 +161,7 @@ class ThisApplication:
 
         if vkey not in self._application_variables:
 
-            default_found = None
+            default_found = ...
             if default is not ...:
                 default_found = default
             elif variable_desc.default is not ...:
@@ -169,18 +169,23 @@ class ThisApplication:
 
             sname = variable_desc.section
 
+            vval = ...
             if variable_desc.source & VariableSource.ENVIRONMENT and  vname in os.environ:
                 vval = os.environ[vname]
             elif variable_desc.source & VariableSource.SETTINGS and sname in self._config_parser:
                 conf_section = self._config_parser[sname]
                 if vname in conf_section:
                     vval = conf_section[vname]
-                else:
+                elif default_found is not ...:
                     vval = default_found
-            else:
+            elif default_found is not ...:
                 vval = default_found
 
-            self._application_variables[vkey] = vval
+            if vval is not ...:
+                self._application_variables[vkey] = vval
+            elif variable_desc.required:
+                errmsg = f"The '{sname}->{vname}' setting is required."
+                raise KeyError(errmsg)
 
         else:
             vval = self._application_variables[vkey]

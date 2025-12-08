@@ -83,13 +83,14 @@ class AppVarDesc:
     """
 
     def __init__(self, *, section: str='DEFAULT', default: str=..., overrides: bool=True, context_path: Optional[str]=None,
-                 source: VariableSource=VariableSource.BOTH, converter: Optional[ValueConverter]=None):
+                 source: VariableSource=VariableSource.BOTH, converter: Optional[ValueConverter]=None, required: bool=False):
         self._section = assert_section_name(section)
         self._default = default
         self._overrides = overrides
         self._context_path = context_path
         self._source = source
         self._converter = converter
+        self._required = required
     
         self._name = None
         self._key = None
@@ -134,6 +135,13 @@ class AppVarDesc:
             Indicates this variable should override its corresponding OS environment variable.
         """
         return self._overrides
+
+    @property
+    def required(self) -> bool:
+        """
+            Indicates if this variable is required as an input.
+        """
+        return self._required
 
     @property
     def section(self) -> str:
