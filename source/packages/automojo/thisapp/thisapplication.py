@@ -183,7 +183,10 @@ class ThisApplication:
 
             if vval is not ...:
                 self._application_variables[vkey] = vval
-            elif variable_desc.required:
+            elif not variable_desc.required:
+                vval = ...
+                self._application_variables[vkey] = vval
+            else:
                 errmsg = f"The '{sname}->{vname}' setting is required."
                 raise KeyError(errmsg)
 
