@@ -73,6 +73,10 @@ class ThisApplication:
         return
     
     @property
+    def config_parser(self):
+        return self._config_parser
+
+    @property
     def context(self):
         return self._context
     
