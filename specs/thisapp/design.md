@@ -72,6 +72,130 @@ Initialization system that establishes the application's identity and presence s
 - Extension module loading
 - Service identification
 
+**Initialization Pattern:**
+Applications must call `establish_app_persona()` early in their startup process, before any access to the `ThisApplication` singleton. This function configures the minimum variables needed for the application to operate with proper logging, presence directory management, and configuration file handling.
+
+**Basic Initialization Example:**
+```python
+from automojo.thisapp.persona import establish_app_persona
+
+# Minimal required configuration
+establish_app_persona(
+    name="testtool",                      # Short name for presence directory
+    logger_name="TESTTOOL",               # Logger name (appears in log entries)
+    log_basename="mytesttool"             # Base name for log files
+)
+```
+
+**Full Configuration Example:**
+```python
+from automojo.thisapp.persona import establish_app_persona
+
+# Complete configuration with all options
+establish_app_persona(
+    name="automtool",                                  # Required: Short name for presence directory
+    logger_name="AUTOMTOOL",                           # Required: Logger name (appears in logs)
+    log_basename="automation-tool",                    # Required: Log file base name
+    presence_dir="/opt/automtool",                     # Optional: Custom presence directory
+    log_directory="/var/log/automtool",                # Optional: Custom log directory
+    settings_file="config/tool-settings.ini",         # Optional: Custom settings file
+    extensions="myext.module1;myext.module2",         # Optional: Extension modules
+    service_name="my-automation-service"               # Optional: Service identifier
+)
+```
+
+**Default Behavior:**
+When optional parameters are not provided, the system applies intelligent defaults:
+- `presence_dir`: Defaults to `~/name.lower()` (e.g., `~/automtool`)
+- `log_directory`: Defaults to `presence_dir/logs`
+- `settings_file`: Defaults to `presence_dir/settings.config`
+- `extensions`: Defaults to `None` (no extensions loaded)
+- `service_name`: Defaults to `None`
+
+**Configuration Impact:**
+The persona establishment configures core application variables that enable:
+- **Logging System**: Logger name and log file location for application logging
+- **Presence Management**: Directory structure for configuration, data, and log storage
+- **Configuration Loading**: Settings file location for INI-format configuration
+- **Extension System**: Module loading for extensible functionality
+- **Service Integration**: Service identification for system-level integration
+
+**Application Entry Point Examples:**
+
+*Command-Line Tool Entry Function:*
+```python
+#!/usr/bin/env python3
+
+import sys
+from automojo.thisapp.persona import establish_app_persona
+from automojo.thisapp.wellknown import ThisApplicationSingleton
+
+def main():
+    """Main entry point for the test automation tool."""
+    
+    # Establish application persona FIRST - before any other initialization
+    establish_app_persona(
+        name="testrunner",
+        logger_name="TESTRUNNER", 
+        log_basename="test-runner",
+        presence_dir="~/.testrunner",
+        settings_file="testrunner.config"
+    )
+    
+    # Now safe to access application singleton and other components
+    this_app = ThisApplicationSingleton()
+    
+    # Continue with application logic...
+    run_tests()
+
+if __name__ == "__main__":
+    main()
+```
+
+*Service/Daemon Entry Function:*
+```python
+#!/usr/bin/env python3
+
+import logging
+from automojo.thisapp.persona import establish_app_persona
+from automojo.thisapp.wellknown import ThisApplicationSingleton
+
+class AutomationService:
+    
+    def __init__(self):
+        # Establish service persona at initialization
+        establish_app_persona(
+            name="automsvc",
+            logger_name="AUTOMSVC",
+            log_basename="automation-service",
+            presence_dir="/opt/automsvc",
+            log_directory="/var/log/automsvc", 
+            settings_file="/etc/automsvc/service.config",
+            extensions="automation.plugins.core;automation.plugins.extended",
+            service_name="automation-service-daemon"
+        )
+        
+        # Application persona is now established - safe to use singletons
+        self.app = ThisApplicationSingleton()
+        self.logger = logging.getLogger(self.app.logger_name)
+        
+    def start_service(self):
+        """Start the automation service daemon."""
+        self.logger.info("Starting automation service...")
+        # Service implementation continues...
+
+def main():
+    """Service entry point."""
+    service = AutomationService()
+    service.start_service()
+
+if __name__ == "__main__":
+    main()
+```
+
+**Critical Timing:**
+The `establish_app_persona()` call must occur before any attempt to access `ThisApplicationSingleton()` or any components that depend on the application configuration. This ensures the application has a properly defined identity and configuration foundation before any other initialization occurs.
+
 ### Data Flow
 
 ```
