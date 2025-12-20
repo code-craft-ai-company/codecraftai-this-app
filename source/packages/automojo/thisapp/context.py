@@ -18,7 +18,8 @@ import re
 
 from collections.abc import MutableMapping
 
-REGEX_PATH_VALIDATOR = re.compile("/{1}([-a-zA-Z0-9_]+)")
+REGEX_PATH_VALIDATOR = re.compile(r"/{1}([-a-zA-Z0-9_.]+)")
+REGEX_SINGLE_PATH_VALIDATOR = re.compile(r"^[-a-zA-Z0-9_.]+$")
 
 
 def validate_path_name(path: str) -> List[str]:
@@ -27,13 +28,22 @@ def validate_path_name(path: str) -> List[str]:
 
         :param path: The path to validate and determine its parts.
 
-        :returns: The seperate parts of the path provided.
+        :returns: The separate parts of the path provided.
+                  Supports absolute paths starting with '/' and single-segment names.
     """
 
-    parts = None
-    mobj = REGEX_PATH_VALIDATOR.findall(path)
-    if mobj is not None:
-        parts = list(mobj)
+    if path is None:
+        parts = []
+    elif path.startswith("/"):
+        mobj = REGEX_PATH_VALIDATOR.findall(path)
+        parts = list(mobj) if mobj is not None else []
+    else:
+        if "/" in path:
+            parts = []
+        elif REGEX_SINGLE_PATH_VALIDATOR.match(path):
+            parts = [path]
+        else:
+            parts = []
 
     return parts
 
@@ -455,4 +465,3 @@ class Context:
     def __setitem__(self, key: str, val: Any):
         self._insert(self._store, key, [key], val)
         return
-

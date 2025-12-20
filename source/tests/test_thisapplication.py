@@ -81,7 +81,6 @@ class TestThisApplication(unittest.TestCase):
                 settings_file=settings_path,
                 extensions="",
                 service_name=None,
-                context_insert=None,
                 from_establish_app_persona=True,
             )
 
@@ -90,11 +89,6 @@ class TestThisApplication(unittest.TestCase):
             self.assertEqual(this_app.get_variable_value(desc), "envvalue")
 
     def test_override_variable_value_sets_environment_and_context(self):
-        captured = {}
-
-        def context_insert(path, value):
-            captured[path] = value
-
         class VarDescHolder:
             VAR_A = AppVarDesc(context_path="context.var")
 
@@ -108,7 +102,6 @@ class TestThisApplication(unittest.TestCase):
             settings_file="/tmp/app/settings.config",
             extensions="",
             service_name=None,
-            context_insert=context_insert,
             from_establish_app_persona=True,
         )
 
@@ -116,14 +109,10 @@ class TestThisApplication(unittest.TestCase):
 
         self.assertEqual(this_app.get_variable_value(desc), 42)
         self.assertEqual(os.environ[desc.name], "42")
-        self.assertEqual(captured.get("context.var"), 42)
+        self.assertEqual(this_app.context.lookup("context.var"), 42)
 
     def test_resolve_variable_set_resolves_each_variable_once(self):
-        resolved_context = {}
-
-        def context_insert(path, value):
-            resolved_context[path] = value
-
+        
         class DescHolder:
             FIRST = AppVarDesc(context_path="first.path", default="1")
             SECOND = AppVarDesc(context_path="second.path", default="2")
@@ -142,15 +131,14 @@ class TestThisApplication(unittest.TestCase):
             settings_file="/tmp/app/settings.config",
             extensions="",
             service_name=None,
-            context_insert=context_insert,
             from_establish_app_persona=True,
         )
 
         this_app.resolve_variable_set(VarSet)
         this_app.resolve_variable_set(VarSet)
 
-        self.assertEqual(resolved_context["first.path"], "1")
-        self.assertEqual(resolved_context["second.path"], "2")
+        self.assertEqual(this_app.context.lookup("first.path"), "1")
+        self.assertEqual(this_app.context.lookup("second.path"), "2")
         self.assertEqual(len(this_app._resolved_variables), 2)
 
 

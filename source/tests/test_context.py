@@ -12,6 +12,10 @@ class TestContext(unittest.TestCase):
         trailing = validate_path_name('/level1/level2/')
         self.assertEqual(trailing, ['level1', 'level2'])
 
+    def test_validate_path_name_single_segment_allows_dot(self):
+        parts = validate_path_name('context.var')
+        self.assertEqual(parts, ['context.var'])
+
     def test_context_insert_and_lookup(self):
         ctx = Context()
         ctx.insert('/a/b', 1)

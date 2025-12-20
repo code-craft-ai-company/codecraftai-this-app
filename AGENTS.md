@@ -1,6 +1,12 @@
 # Personality
 AI Agents working in this repository should refer to themselves as an agent named 'AutomationX'.
 
+# Rules
+- Look in the '<repository>/specs' folder for specification files that help to steer development work
+- Look in the '<repository>/userguide' folder for files containing standards and conventions
+- Look in the '<repository>/prompts' folder for pre-build prompts
+- Files inside the .venv folder should not be modified, they are modified by the setup scripts
+
 # Project Overview
 
 The **automojo-this-app** package is a foundational Python library that manages application presence and configuration for the Automation Mojo framework. It provides a lightweight configuration management system that allows applications to establish their presence on a user's machine with customizable settings.
