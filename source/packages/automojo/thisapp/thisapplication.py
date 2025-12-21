@@ -151,7 +151,8 @@ class ThisApplication:
         """
         vkey = variable_desc.key
 
-        del self._application_variables[vkey]
+        if vkey in self._application_variables:
+            del self._application_variables[vkey]
 
         return
 
