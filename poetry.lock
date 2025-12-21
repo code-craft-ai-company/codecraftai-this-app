@@ -2,7 +2,7 @@
 
 [[package]]
 name = "automojo-errors"
-version = "0.0.1"
+version = "0.0.2"
 description = "Automation Mojo - Errors"
 category = "main"
 optional = false
@@ -14,7 +14,7 @@ develop = false
 type = "git"
 url = "https://github.com/automationmojo/automojo-errors.git"
 reference = "main"
-resolved_reference = "9eba10a1d65080ecd9ef19dff0e6df37ad177bfc"
+resolved_reference = "e43d14d287dc4fadc471dd3900ee65d39355ff30"
 
 [[package]]
 name = "automojo-extension"
@@ -30,7 +30,7 @@ develop = false
 type = "git"
 url = "https://github.com/automationmojo/automojo-extension.git"
 reference = "main"
-resolved_reference = "e59882495ee30c2c867b2c2d2247dc60963e908d"
+resolved_reference = "7b1b3aacafc8ae514dc976fbf0d2963d71b56813"
 
 [metadata]
 lock-version = "2.0"
