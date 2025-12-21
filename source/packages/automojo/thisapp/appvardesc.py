@@ -82,8 +82,9 @@ class AppVarDesc:
         Describes an application variable that is loaded from the settings file or from the environment variables
     """
 
-    def __init__(self, *, section: str='DEFAULT', default: str=..., overrides: bool=True, context_path: Optional[str]=None,
-                 source: VariableSource=VariableSource.BOTH, converter: Optional[ValueConverter]=None, required: bool=False):
+    def __init__(self, *, section: str='DEFAULT', default: Optional[Union[str, Callable]]=..., overrides: bool=True,
+                 context_path: Optional[str]=None, source: VariableSource=VariableSource.BOTH,
+                 converter: Optional[ValueConverter]=None, required: bool=False):
         self._section = assert_section_name(section)
         self._default = default
         self._overrides = overrides
@@ -113,7 +114,13 @@ class AppVarDesc:
         """
             The default value associated with this variable or None if no default was provided.
         """
-        return self._default
+        rtnval = None
+        if self._default is not None:
+            if isinstance(self._default, Callable):
+                rtnval = self._default()
+            else:
+                rtnval = self._default
+        return rtnval
 
     @property
     def key(self) -> str:
