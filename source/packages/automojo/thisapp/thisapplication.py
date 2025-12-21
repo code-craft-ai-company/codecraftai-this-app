@@ -141,6 +141,19 @@ class ThisApplication:
         found_node = self._context.lookup(path, default=default, raise_error=raise_error)
         return
 
+    def forget_variable(self, variable_desc: AppVarDesc):
+        """
+            Causes the application instance to forget a variable.  This is useful to force the re-resolution of the
+            variable meaning, it forces the re-application of the variable search order to resolve the most applicable
+            values source (settings, environment, or override)
+        
+            :param variable_desc: A description of the variable being retrieved.
+        """
+        vkey = variable_desc.key
+
+        del self._application_variables[vkey]
+
+        return
 
     def get_variable_value(self, variable_desc: AppVarDesc, default: Optional[str]=..., converter: Optional[ValueConverter] = None) -> Union[str, Any]:
         """
