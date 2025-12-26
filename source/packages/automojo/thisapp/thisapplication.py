@@ -49,7 +49,7 @@ class ThisApplication:
 
         self._name = name
         self._presence_dir = presence_dir
-        self._settings_file = settings_file
+        self._settings_file = os.path.expandvars(os.path.expanduser(settings_file))
         self._extensions = extensions
         self._logger_name = logger_name
         self._log_basename = log_basename
