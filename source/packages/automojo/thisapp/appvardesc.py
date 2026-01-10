@@ -1,5 +1,16 @@
+"""
+.. module:: appvardesc
+    :platform: Darwin, Linux, Unix, Windows
+    :synopsis: Module that defines application variable descriptors and validation helpers.
 
-from typing import Any, Callable, Optional, Protocol, Union
+.. moduleauthor:: Myron Walker <myron.walker@gmail.com>
+"""
+
+__author__ = "Myron Walker"
+__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__credits__ = []
+
+from typing import Any, Callable, Optional, Union
 
 import enum
 import re
@@ -70,11 +81,12 @@ def assert_variable_name(var_name: str) -> str:
 
 ValueConverter = Callable[[str], Any]
 
+
 class VariableSource(enum.Flag):
-    NONE = 0
-    ENVIRONMENT = 1
-    SETTINGS = 2
-    BOTH = 3
+    NONE = 0            # This variable is only read from defaults and override calls
+    ENVIRONMENT = 1     # This variable is only read from defaults or the environment
+    SETTINGS = 2        # This variable is only read from defaults or the settings file
+    BOTH = 3            # This variable is only read from defaults, the settings file, or the environment in order
 
 
 class AppVarDesc:
@@ -184,4 +196,3 @@ class AppVarDesc:
 
     def __str__(self):
         return self._name
-

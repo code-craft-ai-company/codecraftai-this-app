@@ -1,3 +1,15 @@
+"""
+.. module:: appvaraccessor
+    :platform: Darwin, Linux, Unix, Windows
+    :synopsis: Module that provides the variable accessor descriptor and base class for
+               variable declaration containers.
+
+.. moduleauthor:: Myron Walker <myron.walker@gmail.com>
+"""
+
+__author__ = "Myron Walker"
+__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__credits__ = []
 
 from typing import Any, List, Optional
 

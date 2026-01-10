@@ -1,3 +1,14 @@
+"""
+.. module:: personavariables
+    :platform: Darwin, Linux, Unix, Windows
+    :synopsis: Module that defines persona-related application variable declarations and accessors.
+
+.. moduleauthor:: Myron Walker <myron.walker@gmail.com>
+"""
+
+__author__ = "Myron Walker"
+__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__credits__ = []
 
 
 from automojo.thisapp.appvardesc import AppVarDesc, VariableSource

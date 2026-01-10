@@ -1,3 +1,14 @@
+"""
+.. module:: appvarset
+    :platform: Darwin, Linux, Unix, Windows
+    :synopsis: Module that defines the base class for application variable sets.
+
+.. moduleauthor:: Myron Walker <myron.walker@gmail.com>
+"""
+
+__author__ = "Myron Walker"
+__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__credits__ = []
 
 from typing import List
 
@@ -28,3 +39,4 @@ class AppVarSet:
         rval: List[AppVarDesc] = list(variables_by_name.values())
 
         return rval
+
