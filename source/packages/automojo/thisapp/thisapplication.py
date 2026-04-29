@@ -23,6 +23,8 @@ from automojo.thisapp.appvardesc import AppVarDesc, VariableSource, ValueConvert
 from automojo.thisapp.appvarset import AppVarSet
 from automojo.thisapp.context import Context
 
+from automojo.thisapp.personavariables import PersonaVariablesDesc
+
 
 class ThisApplication:
     """
@@ -238,8 +240,19 @@ class ThisApplication:
                 envval = str(new_value)
             os.environ[vname] = envval
         
-        if variable_desc.context_path is not None:
-            self._context.insert(variable_desc.context_path, new_value)
+        # We only support overriding a subset of ThisApplication members in this way as only
+        # some variables have a delayed initialization requirement.
+        vname = variable_desc.name
+        if vname ==  PersonaVariablesDesc.AM_SERVICE_NAME.name:
+            self._service_name = new_value
+        elif vname == PersonaVariablesDesc.AM_LOG_BASENAME.name:
+            self._log_basename = new_value
+        elif vname == PersonaVariablesDesc.AM_LOG_DIRECTORY.name:
+            self._log_directory = new_value
+        elif vname == PersonaVariablesDesc.AM_LOGGER_NAME.name:
+            self._logger_name = new_value
+
+        return
 
         return
 
