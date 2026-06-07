@@ -7,14 +7,14 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 
-from automojo.thisapp.appvardesc import AppVarDesc, VariableSource
-from automojo.thisapp.appvarset import AppVarSet
-from automojo.thisapp.appvaraccessor import AppVarAccessor
-from automojo.thisapp.contextpaths import ContextPaths
+from ccai.thisapp.appvardesc import AppVarDesc, VariableSource
+from ccai.thisapp.appvarset import AppVarSet
+from ccai.thisapp.appvaraccessor import AppVarAccessor
+from ccai.thisapp.contextpaths import ContextPaths
 
 class PersonaVariablesDesc(AppVarSet):
 

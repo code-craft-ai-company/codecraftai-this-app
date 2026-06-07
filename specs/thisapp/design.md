@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **automojo-this-app** package is a foundational Python library that provides application presence and configuration management for the Automation Mojo framework. It establishes a lightweight, extensible configuration system that allows applications to define their identity, manage settings with precedence rules, and maintain a persistent presence on the host machine.
+The **codecraftai-this-app** package is a foundational Python library that provides application presence and configuration management for the Code Craft AI framework. It establishes a lightweight, extensible configuration system that allows applications to define their identity, manage settings with precedence rules, and maintain a persistent presence on the host machine.
 
 ## Architecture
 
@@ -77,7 +77,7 @@ Applications must call `establish_app_persona()` early in their startup process,
 
 **Basic Initialization Example:**
 ```python
-from automojo.thisapp.persona import establish_app_persona
+from ccai.thisapp.persona import establish_app_persona
 
 # Minimal required configuration
 establish_app_persona(
@@ -89,7 +89,7 @@ establish_app_persona(
 
 **Full Configuration Example:**
 ```python
-from automojo.thisapp.persona import establish_app_persona
+from ccai.thisapp.persona import establish_app_persona
 
 # Complete configuration with all options
 establish_app_persona(
@@ -127,8 +127,8 @@ The persona establishment configures core application variables that enable:
 #!/usr/bin/env python3
 
 import sys
-from automojo.thisapp.persona import establish_app_persona
-from automojo.thisapp.wellknown import ThisApplicationSingleton
+from ccai.thisapp.persona import establish_app_persona
+from ccai.thisapp.wellknown import ThisApplicationSingleton
 
 def main():
     """Main entry point for the test automation tool."""
@@ -157,8 +157,8 @@ if __name__ == "__main__":
 #!/usr/bin/env python3
 
 import logging
-from automojo.thisapp.persona import establish_app_persona
-from automojo.thisapp.wellknown import ThisApplicationSingleton
+from ccai.thisapp.persona import establish_app_persona
+from ccai.thisapp.wellknown import ThisApplicationSingleton
 
 class AutomationService:
     

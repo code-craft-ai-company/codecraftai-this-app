@@ -1,6 +1,6 @@
 """
     Testbase tests for :class:`AppVarAccessor` and :class:`VariableSet` under
-    ``automojo.thisapp.appvaraccessor``.
+    ``ccai.thisapp.appvaraccessor``.
 
     These were converted from a unittest module during the Phase 7
     unittest->testbase shift. Each test replicates the original ``setUp``
@@ -19,8 +19,8 @@ TEST_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "packa
 if TEST_ROOT not in sys.path:
     sys.path.insert(0, TEST_ROOT)
 
-from automojo.thisapp.appvaraccessor import AppVarAccessor, VariableSet
-from automojo.thisapp.appvardesc import AppVarDesc
+from ccai.thisapp.appvaraccessor import AppVarAccessor, VariableSet
+from ccai.thisapp.appvardesc import AppVarDesc
 
 
 def create_stub_app(value: Any) -> Any:

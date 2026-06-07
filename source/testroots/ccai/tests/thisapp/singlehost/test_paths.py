@@ -1,5 +1,5 @@
 """
-    Testbase conversion of the ``automojo.thisapp.paths`` unittest module.
+    Testbase conversion of the ``ccai.thisapp.paths`` unittest module.
 
     Each test reconstructs the shared ThisApplication environment via the
     module-level ``_establish_thisapp_env`` helper (the former ``setUp``) and
@@ -14,12 +14,12 @@ from dataclasses import dataclass, field
 from typing import Dict
 from unittest import mock
 
-from automojo.thisapp import paths
-from automojo.thisapp.enumerations import JobType
-from automojo.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
-from automojo.thisapp import wellknown
-from automojo.thisapp.appvaraccessor import AppVarAccessor
-from automojo.thisapp.thisapplication import ThisApplication
+from ccai.thisapp import paths
+from ccai.thisapp.enumerations import JobType
+from ccai.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
+from ccai.thisapp import wellknown
+from ccai.thisapp.appvaraccessor import AppVarAccessor
+from ccai.thisapp.thisapplication import ThisApplication
 
 
 @dataclass
@@ -198,9 +198,9 @@ def test_get_directory_for_code_container() -> None:
     """
     env = _establish_thisapp_env()
     try:
-        import automojo.thisapp.paths as mod
+        import ccai.thisapp.paths as mod
         dpath = paths.get_directory_for_code_container(mod)
-        assert dpath.endswith(os.path.join("automojo", "runtime"))
+        assert dpath.endswith(os.path.join("ccai", "runtime"))
     finally:
         _teardown_thisapp_env(env)
     return

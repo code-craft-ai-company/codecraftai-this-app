@@ -7,7 +7,7 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 
@@ -18,12 +18,12 @@ from typing import List, Optional
 import os
 import tempfile
 
-from automojo.errors.exceptions import ConfigurationError, SemanticError
+from ccai.errors.exceptions import ConfigurationError, SemanticError
 
-from automojo.xmodules.fspath import expand_path
+from ccai.xmodules.fspath import expand_path
 
-from automojo.thisapp.enumerations import JobType
-from automojo.thisapp.runtimevariables import RuntimeVariables
+from ccai.thisapp.enumerations import JobType
+from ccai.thisapp.runtimevariables import RuntimeVariables
 
 
 DIR_PRESENCE_DIRECTORY = None

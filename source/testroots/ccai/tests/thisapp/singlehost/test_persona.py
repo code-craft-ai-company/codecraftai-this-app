@@ -1,5 +1,5 @@
 """
-    Testbase tests for :mod:`automojo.thisapp.persona`.
+    Testbase tests for :mod:`ccai.thisapp.persona`.
 
     These tests verify the ``establish_app_persona`` behaviour: that it sets the
     expected ``AppPersona`` class attributes and the ``THISAPPLICATION_SINGLETON``
@@ -24,48 +24,48 @@ if TEST_ROOT not in sys.path:
 
 def install_stub_modules() -> type:
     """
-        Install stub modules for the ``automojo`` packages required to import
-        :mod:`automojo.thisapp.persona` in isolation.
+        Install stub modules for the ``ccai`` packages required to import
+        :mod:`ccai.thisapp.persona` in isolation.
 
         :returns: The stub ``SemanticError`` exception type.
     """
-    semantic_module = types.ModuleType("automojo.errors.exceptions")
+    semantic_module = types.ModuleType("ccai.errors.exceptions")
 
     class SemanticError(Exception):
         pass
 
     semantic_module.SemanticError = SemanticError
 
-    errors_pkg = types.ModuleType("automojo.errors")
+    errors_pkg = types.ModuleType("ccai.errors")
     errors_pkg.__path__ = []
     errors_pkg.exceptions = semantic_module
 
-    automojo_pkg = sys.modules.setdefault("automojo", types.ModuleType("automojo"))
-    automojo_pkg.__path__ = []
+    ccai_pkg = sys.modules.setdefault("ccai", types.ModuleType("ccai"))
+    ccai_pkg.__path__ = []
 
-    sys.modules["automojo.errors"] = errors_pkg
-    sys.modules["automojo.errors.exceptions"] = semantic_module
+    sys.modules["ccai.errors"] = errors_pkg
+    sys.modules["ccai.errors.exceptions"] = semantic_module
 
-    extension_pkg = types.ModuleType("automojo.extension")
+    extension_pkg = types.ModuleType("ccai.extension")
     extension_pkg.__path__ = []
-    sys.modules["automojo.extension"] = extension_pkg
+    sys.modules["ccai.extension"] = extension_pkg
 
-    constants_module = types.ModuleType("automojo.extension.constants")
+    constants_module = types.ModuleType("ccai.extension.constants")
     constants_module.EXT_MOD_SEP = ";"
-    sys.modules["automojo.extension.constants"] = constants_module
+    sys.modules["ccai.extension.constants"] = constants_module
 
-    factory_pkg = types.ModuleType("automojo.extension.factory")
+    factory_pkg = types.ModuleType("ccai.extension.factory")
     factory_pkg.__path__ = []
-    sys.modules["automojo.extension.factory"] = factory_pkg
+    sys.modules["ccai.extension.factory"] = factory_pkg
 
-    superfactory_module = types.ModuleType("automojo.extension.factory.superfactory")
+    superfactory_module = types.ModuleType("ccai.extension.factory.superfactory")
 
     class SuperFactory:
         def __init__(self, modules=None):
             self.modules = modules or []
 
     superfactory_module.SuperFactory = SuperFactory
-    sys.modules["automojo.extension.factory.superfactory"] = superfactory_module
+    sys.modules["ccai.extension.factory.superfactory"] = superfactory_module
 
     rtnval = SemanticError
     return rtnval
@@ -73,9 +73,9 @@ def install_stub_modules() -> type:
 
 SemanticError = install_stub_modules()
 
-from automojo.thisapp import persona
-from automojo.thisapp import wellknown
-from automojo.thisapp.personavariables import PersonaVariablesDesc
+from ccai.thisapp import persona
+from ccai.thisapp import wellknown
+from ccai.thisapp.personavariables import PersonaVariablesDesc
 
 
 def _establish_persona_env() -> None:

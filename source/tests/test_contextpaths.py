@@ -1,6 +1,6 @@
 
 import unittest
-from automojo.thisapp.contextpaths import ContextPaths
+from ccai.thisapp.contextpaths import ContextPaths
 
 class TestContextPathsUpdate(unittest.TestCase):
     def test_result_path_for_build(self):

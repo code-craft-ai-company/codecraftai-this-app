@@ -8,12 +8,12 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 from typing import Any, List, Optional
 
-from automojo.thisapp.appvardesc import AppVarDesc, assert_variable_name
+from ccai.thisapp.appvardesc import AppVarDesc, assert_variable_name
 
 class AppVarAccessor:
     """
@@ -46,7 +46,7 @@ class AppVarAccessor:
     def this_app(self):
         this_type = type(self)
         if this_type._this_app is None:
-            from automojo.thisapp.wellknown import ThisApplicationSingleton
+            from ccai.thisapp.wellknown import ThisApplicationSingleton
             this_type._this_app = ThisApplicationSingleton()
         return self._this_app
 

@@ -10,31 +10,31 @@ if TEST_ROOT not in sys.path:
 
 
 def install_stub_semantic_error():
-    semantic_module = types.ModuleType("automojo.errors.exceptions")
+    semantic_module = types.ModuleType("ccai.errors.exceptions")
 
     class SemanticError(Exception):
         pass
 
     semantic_module.SemanticError = SemanticError
 
-    errors_pkg = types.ModuleType("automojo.errors")
+    errors_pkg = types.ModuleType("ccai.errors")
     errors_pkg.__path__ = []
     errors_pkg.exceptions = semantic_module
 
-    automojo_pkg = sys.modules.setdefault("automojo", types.ModuleType("automojo"))
-    automojo_pkg.__path__ = []
+    ccai_pkg = sys.modules.setdefault("ccai", types.ModuleType("ccai"))
+    ccai_pkg.__path__ = []
 
-    sys.modules["automojo.errors"] = errors_pkg
-    sys.modules["automojo.errors.exceptions"] = semantic_module
+    sys.modules["ccai.errors"] = errors_pkg
+    sys.modules["ccai.errors.exceptions"] = semantic_module
 
     return SemanticError
 
 
 install_stub_semantic_error()
 
-from automojo.thisapp import thisapplication as thisapplication_module
-from automojo.thisapp.appvardesc import AppVarDesc
-from automojo.thisapp.thisapplication import ThisApplication
+from ccai.thisapp import thisapplication as thisapplication_module
+from ccai.thisapp.appvardesc import AppVarDesc
+from ccai.thisapp.thisapplication import ThisApplication
 
 
 class TestThisApplication(unittest.TestCase):

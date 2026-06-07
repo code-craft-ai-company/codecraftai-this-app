@@ -7,7 +7,7 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 
@@ -17,26 +17,26 @@ import os
 import tempfile
 import uuid
 
-from automojo.errors.exceptions import ConfigurationError, SemanticError
-from automojo.errors.xtraceback import (
+from ccai.errors.exceptions import ConfigurationError, SemanticError
+from ccai.errors.xtraceback import (
     TRACEBACK_CONFIG,
     VALID_MEMBER_TRACE_POLICY,
 )
 
-from automojo.xmodules.xlogging.levels import LogLevel
+from ccai.xmodules.xlogging.levels import LogLevel
 
-from automojo.thisapp.thisapplication import ThisApplication
-from automojo.thisapp.wellknown import ThisApplicationSingleton
+from ccai.thisapp.thisapplication import ThisApplication
+from ccai.thisapp.wellknown import ThisApplicationSingleton
 
-from automojo.xmodules.xlogging.parameters import LoggingLocation, LoggingReduction
-from automojo.xmodules.xlogging.activation import (
+from ccai.xmodules.xlogging.parameters import LoggingLocation, LoggingReduction
+from ccai.xmodules.xlogging.activation import (
     activate_standard_file_logging,
     activate_interactive_console_logging,
     activate_service_logging
 )
 
-from automojo.thisapp.enumerations import ActivationProfile, JobType
-from automojo.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc, DefaultValue
+from ccai.thisapp.enumerations import ActivationProfile, JobType
+from ccai.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc, DefaultValue
 
 
 def activate_profile_command():
@@ -175,7 +175,7 @@ def _activate_profile_common(this_app: ThisApplication):
     """
     """
     
-    from automojo.xmodules.xdatetime import DATETIME_FORMAT_FILESYSTEM
+    from ccai.xmodules.xdatetime import DATETIME_FORMAT_FILESYSTEM
 
     
 

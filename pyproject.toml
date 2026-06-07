@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "automojo-this-app"
-description = "Automation Mojo - This-App"
+name = "codecraftai-this-app"
+description = "Code Craft AI - This-App"
 version = "0.0.1"
 authors = [
     "Myron Walker"
@@ -15,13 +15,13 @@ classifiers = [
 keywords = [
     "python"
 ]
-packages = [{include="automojo", from="source/packages"}]
+packages = [{include="ccai", from="source/packages"}]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
-automojo-errors = { git = "https://github.com/automationmojo/automojo-errors.git", branch = "main" }
-automojo-extension = { git = "https://github.com/automationmojo/automojo-extension.git", branch = "main" }
-automojo-xmodules = { git = "https://github.com/automationmojo/automojo-xmodules.git", branch = "main" }
+codecraftai-errors = { git = "https://github.com/automationmojo/codecraftai-errors.git", branch = "main" }
+codecraftai-extension = { git = "https://github.com/automationmojo/codecraftai-extension.git", branch = "main" }
+codecraftai-xmodules = { git = "https://github.com/automationmojo/codecraftai-xmodules.git", branch = "main" }
 
 [tool.poetry.group.dev.dependencies]
 

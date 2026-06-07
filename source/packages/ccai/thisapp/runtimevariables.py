@@ -8,7 +8,7 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 import os
@@ -16,20 +16,20 @@ import os
 from datetime import datetime
 from uuid import uuid4
 
-from automojo.xmodules.xconvert import parse_bool
-from automojo.xmodules.xdatetime import (
+from ccai.xmodules.xconvert import parse_bool
+from ccai.xmodules.xdatetime import (
     parse_datetime, DATETIME_FORMAT_FILESYSTEM, DATETIME_FORMAT_TIMESTAMP
 )
-from automojo.xmodules.xlogging.levels import LogLevel
+from ccai.xmodules.xlogging.levels import LogLevel
 
-from automojo.thisapp.appvardesc import AppVarDesc
-from automojo.thisapp.appvaraccessor import AppVarAccessor
-from automojo.thisapp.contextpaths import ContextPaths
-from automojo.thisapp.personavariables import PersonaVariablesDesc, PersonaVariables
-from automojo.thisapp.wellknown import ThisApplicationSingleton
+from ccai.thisapp.appvardesc import AppVarDesc
+from ccai.thisapp.appvaraccessor import AppVarAccessor
+from ccai.thisapp.contextpaths import ContextPaths
+from ccai.thisapp.personavariables import PersonaVariablesDesc, PersonaVariables
+from ccai.thisapp.wellknown import ThisApplicationSingleton
 
 
-from automojo.thisapp.enumerations import JobType
+from ccai.thisapp.enumerations import JobType
 
 
 class DefaultValue:

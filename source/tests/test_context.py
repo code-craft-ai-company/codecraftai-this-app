@@ -1,7 +1,7 @@
 
 import unittest
 
-from automojo.thisapp.context import Context, ContextCursor, validate_path_name
+from ccai.thisapp.context import Context, ContextCursor, validate_path_name
 
 
 class TestContext(unittest.TestCase):

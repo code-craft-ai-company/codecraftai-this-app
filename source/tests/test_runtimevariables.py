@@ -5,11 +5,11 @@ import unittest
 from datetime import datetime
 from unittest import mock
 
-from automojo.thisapp import runtimevariables
-from automojo.thisapp.runtimevariables import RuntimeVariablesDesc, DefaultValue
-from automojo.thisapp import wellknown
-from automojo.thisapp.appvaraccessor import AppVarAccessor
-from automojo.thisapp.thisapplication import ThisApplication
+from ccai.thisapp import runtimevariables
+from ccai.thisapp.runtimevariables import RuntimeVariablesDesc, DefaultValue
+from ccai.thisapp import wellknown
+from ccai.thisapp.appvaraccessor import AppVarAccessor
+from ccai.thisapp.thisapplication import ThisApplication
 
 class RuntimeVariablesTests(unittest.TestCase):
 

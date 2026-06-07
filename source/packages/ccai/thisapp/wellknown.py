@@ -7,19 +7,19 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 import logging
 import threading
 
-from automojo.errors.exceptions import SemanticError
+from ccai.errors.exceptions import SemanticError
 
-from automojo.extension.constants import EXT_MOD_SEP
-from automojo.extension.factory.superfactory import SuperFactory
+from ccai.extension.constants import EXT_MOD_SEP
+from ccai.extension.factory.superfactory import SuperFactory
 
-from automojo.thisapp.thisapplication import ThisApplication
-from automojo.thisapp.personavariables import PersonaVariablesDesc
+from ccai.thisapp.thisapplication import ThisApplication
+from ccai.thisapp.personavariables import PersonaVariablesDesc
 
 # NOTE: This code is loaded super early where there is likely to only be a single thread
 #       so there is likely no need for any locking.
@@ -66,7 +66,7 @@ def ConfiguredSuperFactorySingleton():
         if CONFIGURED_SUPER_FACTORY is None:
             extension_modules = []
 
-            from automojo.thisapp import persona
+            from ccai.thisapp import persona
 
             if not persona.APP_PERSONA_ESTABLISHED:
                 warnmsg = "IMPORTANT!!! You should establish application presence settings by calling " \
