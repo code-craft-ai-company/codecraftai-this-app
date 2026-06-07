@@ -28,20 +28,42 @@ that are well design, cohesive, and easy to use and that provide rapid but stabl
 
 The **automojo-this-app** package is a foundational Python library that manages application presence and configuration for the Automation Mojo framework. It provides a lightweight configuration management system that allows applications to establish their presence on a user's machine with customizable settings.
 
+This package now ALSO owns the runtime foundation that was absorbed from the retired **automojo-runtime** package. That foundation comprises the `RuntimeVariables` / `RuntimeVariablesDesc` descriptor set (with `DefaultValue` and `resolve_runtime_variables`), the well-known-path helpers, the profile/job enumerations (`ActivationProfile` / `JobType`), and the activation sequence (`activate_profile_*`). Consolidating these into this tier lets higher tiers such as `automojo-testbase` sit above the runtime foundation without taking a dependency on it.
+
 ## Purpose
-The package serves as the foundational configuration layer for Automation Mojo applications and tools, handling:
+The package serves as the foundational configuration and runtime layer for Automation Mojo applications and tools, handling:
 - Application identity and naming
 - Configuration file discovery and loading
 - Environment variable management with precedence rules, for presence variables
 - Extensible module loading
 - Machine-specific presence establishment
+- Runtime variable resolution via the `RuntimeVariables` / `RuntimeVariablesDesc` descriptor set
+- Well-known-path resolution for outputs, results, artifacts, and shared stores
+- Profile and job enumerations (`ActivationProfile`, `JobType`)
+- Application activation sequencing (`activate_profile_*`)
 
 ## Test Granularity
 Tests should verify the functionality of individual components or functions in isolation, focusing on a single aspect of the code for clarity and maintainability.
 
 Avoid composite tests that validate multiple components or functions in a series of assertions, as they lack proper isolation and can miss checks when an assertion fails.
 
-Use Python's `unittest` framework with `setUp` and `tearDown` methods to establish shared conditions across tests while maintaining separation of concerns.
+This package is shifting from Python's `unittest` framework to the `testbase` single-host test
+framework (Phase 7 of the testbase / integration-runtime refactor). Converted tests live under
+`source/testroots/automojo/tests/thisapp/singlehost/` as module-level `def test_*` functions — a
+raised `AssertionError` is a Failure; any other exception is an Error. They are run with:
+
+```
+    testbase testing run --root ./source/testroots/automojo --includes=automojo.tests.thisapp.singlehost --output=./.output
+```
+
+Because `testbase` tests have no `setUp`/`tearDown`, shared per-test setup is replicated through
+module-level helper functions invoked at the start of each test, with cleanup in a `try`/`finally`
+block (to preserve the singleton / module-global resets that keep tests isolated).
+
+Until the converted suite is green-verified in a rehomed environment (the standalone `testbase` CLI
+lands with the Phase 2-tail CLI relocation), the legacy `unittest` suite under `source/tests/` remains
+the authoritative suite and is the one the merge gate runs; the two suites are kept in parallel during
+the shift.
 
 # Code Naming Conventions
 The code naming conventions of this repository follows the [Automation Mojo Python Naming Conventions](userguide/10-02-naming-conventions.rst)

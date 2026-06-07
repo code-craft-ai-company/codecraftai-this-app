@@ -21,6 +21,7 @@ packages = [{include="automojo", from="source/packages"}]
 python = ">=3.10,<4.0"
 automojo-errors = { git = "https://github.com/automationmojo/automojo-errors.git", branch = "main" }
 automojo-extension = { git = "https://github.com/automationmojo/automojo-extension.git", branch = "main" }
+automojo-xmodules = { git = "https://github.com/automationmojo/automojo-xmodules.git", branch = "main" }
 
 [tool.poetry.group.dev.dependencies]
 
