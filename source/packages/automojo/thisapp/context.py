@@ -75,7 +75,7 @@ class ContextCursor:
         else:
             path_parts = validate_path_name(path.rstrip("/"))
         
-        found = self._exists(self._store_ref, path, path_parts)
+        found = self._exists(self._storeref, path, path_parts)
 
         return found
 

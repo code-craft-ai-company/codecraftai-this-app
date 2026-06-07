@@ -141,7 +141,7 @@ class ThisApplication:
             :raises: :class:`LookupError`
         """
         found_node = self._context.lookup(path, default=default, raise_error=raise_error)
-        return
+        return found_node
 
     def forget_variable(self, variable_desc: AppVarDesc):
         """
