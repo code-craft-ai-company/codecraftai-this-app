@@ -4,12 +4,12 @@ import tempfile
 import unittest
 from unittest import mock
 
-from automojo.thisapp import paths
-from automojo.thisapp.enumerations import JobType
-from automojo.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
-from automojo.thisapp import wellknown
-from automojo.thisapp.appvaraccessor import AppVarAccessor
-from automojo.thisapp.thisapplication import ThisApplication
+from ccai.thisapp import paths
+from ccai.thisapp.enumerations import JobType
+from ccai.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
+from ccai.thisapp import wellknown
+from ccai.thisapp.appvaraccessor import AppVarAccessor
+from ccai.thisapp.thisapplication import ThisApplication
 
 
 class PathsTestCase(unittest.TestCase):
@@ -117,9 +117,9 @@ class PathsTestCase(unittest.TestCase):
         self.assertIn("Title", contents)
 
     def test_get_directory_for_code_container(self):
-        import automojo.thisapp.paths as mod
+        import ccai.thisapp.paths as mod
         dpath = paths.get_directory_for_code_container(mod)
-        self.assertTrue(dpath.endswith(os.path.join("automojo", "runtime")))
+        self.assertTrue(dpath.endswith(os.path.join("ccai", "runtime")))
 
     def test_normalize_name_for_path(self):
         name = "My Module: test,1.2;3"

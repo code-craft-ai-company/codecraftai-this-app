@@ -1,7 +1,7 @@
 """
     Testbase conversion of the ``ContextPaths`` enum unit tests.
 
-    These tests verify that the ``automojo.thisapp.contextpaths.ContextPaths``
+    These tests verify that the ``ccai.thisapp.contextpaths.ContextPaths``
     enumeration exposes the expected well-known context path members and that
     each member carries its expected string value. Each test is an independent
     module-level ``test_*`` function; assertions use bare ``assert`` so an
@@ -9,7 +9,7 @@
     Error.
 """
 
-from automojo.thisapp.contextpaths import ContextPaths
+from ccai.thisapp.contextpaths import ContextPaths
 
 
 def test_result_path_for_build() -> None:

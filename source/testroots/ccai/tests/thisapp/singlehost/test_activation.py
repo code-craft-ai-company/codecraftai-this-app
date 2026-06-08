@@ -2,7 +2,7 @@
     Testbase conversion of the ``thisapp`` activation tests.
 
     These tests exercise the activation-profile dispatch helpers in
-    :mod:`automojo.thisapp.activation`. They require heavy shared setup
+    :mod:`ccai.thisapp.activation`. They require heavy shared setup
     (a temp directory, a cleared ``os.environ`` patched via
     :func:`unittest.mock.patch.dict`, a constructed :class:`ThisApplication`
     assigned to ``wellknown.THISAPPLICATION_SINGLETON`` with overridden
@@ -19,16 +19,16 @@ from typing import Any, Callable, Dict, Optional
 from unittest import mock
 from datetime import datetime
 
-from automojo.thisapp import activation
-from automojo.xmodules.xdatetime import DATETIME_FORMAT_FILESYSTEM
-from automojo.xmodules.xlogging import activation as loggingactivation
+from ccai.thisapp import activation
+from ccai.xmodules.xdatetime import DATETIME_FORMAT_FILESYSTEM
+from ccai.xmodules.xlogging import activation as loggingactivation
 
-from automojo.thisapp.contextpaths import ContextPaths
-from automojo.thisapp.enumerations import ActivationProfile, JobType
-from automojo.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
-from automojo.thisapp import wellknown
-from automojo.thisapp.appvaraccessor import AppVarAccessor
-from automojo.thisapp.thisapplication import ThisApplication
+from ccai.thisapp.contextpaths import ContextPaths
+from ccai.thisapp.enumerations import ActivationProfile, JobType
+from ccai.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
+from ccai.thisapp import wellknown
+from ccai.thisapp.appvaraccessor import AppVarAccessor
+from ccai.thisapp.thisapplication import ThisApplication
 
 
 class ThisAppEnv:

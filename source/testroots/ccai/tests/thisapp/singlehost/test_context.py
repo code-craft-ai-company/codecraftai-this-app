@@ -3,13 +3,13 @@
 
     These tests exercise path validation, insert/lookup/remove semantics,
     default-value behaviour, cursor access, template filling, and error
-    raising on the ``automojo.thisapp.context`` module. Each test is an
+    raising on the ``ccai.thisapp.context`` module. Each test is an
     independent module-level ``test_*`` function; assertions use bare
     ``assert`` so an ``AssertionError`` is reported as a Failure and any
     other exception as an Error.
 """
 
-from automojo.thisapp.context import Context, ContextCursor, validate_path_name
+from ccai.thisapp.context import Context, ContextCursor, validate_path_name
 
 
 def test_validate_path_name_simple() -> None:

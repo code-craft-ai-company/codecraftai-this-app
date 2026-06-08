@@ -7,7 +7,7 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 
@@ -17,13 +17,13 @@ import os
 
 from configparser import ConfigParser
 
-from automojo.errors.exceptions import SemanticError
+from ccai.errors.exceptions import SemanticError
 
-from automojo.thisapp.appvardesc import AppVarDesc, VariableSource, ValueConverter
-from automojo.thisapp.appvarset import AppVarSet
-from automojo.thisapp.context import Context
+from ccai.thisapp.appvardesc import AppVarDesc, VariableSource, ValueConverter
+from ccai.thisapp.appvarset import AppVarSet
+from ccai.thisapp.context import Context
 
-from automojo.thisapp.personavariables import PersonaVariablesDesc
+from ccai.thisapp.personavariables import PersonaVariablesDesc
 
 
 class ThisApplication:

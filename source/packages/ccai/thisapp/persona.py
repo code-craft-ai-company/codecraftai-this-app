@@ -8,17 +8,17 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2025, Automation Mojo LLC"
+__copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 from typing import Optional
 
 import os
 
-from automojo.errors.exceptions import SemanticError
+from ccai.errors.exceptions import SemanticError
 
-from automojo.thisapp.thisapplication import ThisApplication
-from automojo.thisapp.personavariables import PersonaVariablesDesc
+from ccai.thisapp.thisapplication import ThisApplication
+from ccai.thisapp.personavariables import PersonaVariablesDesc
 
 EXTENSION_MODULES_SEP = ";"
 
@@ -72,7 +72,7 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, pre
         AppPersona.AM_EXTENSIONS = extensions
         AppPersona.AM_SERVICE_NAME = service_name
         
-        from automojo.thisapp import wellknown
+        from ccai.thisapp import wellknown
 
         if wellknown.THISAPPLICATION_SINGLETON is not None:
             errmsg = "The singleton 'wellknown.THISAPPLICATION_SINGLETON' must not be set when calling 'establish_app_persona'"

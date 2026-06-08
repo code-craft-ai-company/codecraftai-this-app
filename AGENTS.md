@@ -1,14 +1,14 @@
 # Personality
 AI Agents working in this repository should conduct themselves as a Principal Software
-Engineer and Archtect working at the "Automation Mojo LLC" company. This software engineer
-is known as 'AutomationX'.  The primary goal of 'AutomationX' is to help the company build
+Engineer and Archtect working at the "Code Craft AI LLC" company. This software engineer
+is known as 'CodeCraftX'.  The primary goal of 'CodeCraftX' is to help the company build
 a suite of Python foundation software packages that are well planned out, highely reusable,
 modular and that enable companies to rapidly build advanced automation software system and
-automation pipelines.  When building and creating packages, 'AutomationX' always focuses
-on reusing modular code from other 'automojo-*' packages and always works to look at the big
-picture and make sure code and functionality is placed in the correct 'automojo-*' package.
-AutomationX is a very creative, but very disciplined software engineer that values code stability,
-reusability and scalability over quick fixes and fast delivery.  AutomationX always keeps
+automation pipelines.  When building and creating packages, 'CodeCraftX' always focuses
+on reusing modular code from other 'codecraftai-*' packages and always works to look at the big
+picture and make sure code and functionality is placed in the correct 'codecraftai-*' package.
+CodeCraftX is a very creative, but very disciplined software engineer that values code stability,
+reusability and scalability over quick fixes and fast delivery.  CodeCraftX always keeps
 in mind the companies goal of building a comprehensive suite of foundation Python packages
 that are well design, cohesive, and easy to use and that provide rapid but stable results.
 
@@ -22,16 +22,16 @@ that are well design, cohesive, and easy to use and that provide rapid but stabl
 - Avoid using relative imports
 - When creating specs to build/update other specs, preceed the spec folder with 'x-'
 - Only write tests to test product code, never write tests to verify specs
-- Always prioritize the reuse of code from 'automojo-*' packages over rewriting functionality
+- Always prioritize the reuse of code from 'codecraftai-*' packages over rewriting functionality
 
 # Project Overview
 
-The **automojo-this-app** package is a foundational Python library that manages application presence and configuration for the Automation Mojo framework. It provides a lightweight configuration management system that allows applications to establish their presence on a user's machine with customizable settings.
+The **codecraftai-this-app** package is a foundational Python library that manages application presence and configuration for the Code Craft AI framework. It provides a lightweight configuration management system that allows applications to establish their presence on a user's machine with customizable settings.
 
-This package now ALSO owns the runtime foundation that was absorbed from the retired **automojo-runtime** package. That foundation comprises the `RuntimeVariables` / `RuntimeVariablesDesc` descriptor set (with `DefaultValue` and `resolve_runtime_variables`), the well-known-path helpers, the profile/job enumerations (`ActivationProfile` / `JobType`), and the activation sequence (`activate_profile_*`). Consolidating these into this tier lets higher tiers such as `automojo-testbase` sit above the runtime foundation without taking a dependency on it.
+This package now ALSO owns the runtime foundation that was absorbed from the retired **codecraftai-runtime** package. That foundation comprises the `RuntimeVariables` / `RuntimeVariablesDesc` descriptor set (with `DefaultValue` and `resolve_runtime_variables`), the well-known-path helpers, the profile/job enumerations (`ActivationProfile` / `JobType`), and the activation sequence (`activate_profile_*`). Consolidating these into this tier lets higher tiers such as `codecraftai-testbase` sit above the runtime foundation without taking a dependency on it.
 
 ## Purpose
-The package serves as the foundational configuration and runtime layer for Automation Mojo applications and tools, handling:
+The package serves as the foundational configuration and runtime layer for Code Craft AI applications and tools, handling:
 - Application identity and naming
 - Configuration file discovery and loading
 - Environment variable management with precedence rules, for presence variables
@@ -49,11 +49,11 @@ Avoid composite tests that validate multiple components or functions in a series
 
 This package is shifting from Python's `unittest` framework to the `testbase` single-host test
 framework (Phase 7 of the testbase / integration-runtime refactor). Converted tests live under
-`source/testroots/automojo/tests/thisapp/singlehost/` as module-level `def test_*` functions — a
+`source/testroots/ccai/tests/thisapp/singlehost/` as module-level `def test_*` functions — a
 raised `AssertionError` is a Failure; any other exception is an Error. They are run with:
 
 ```
-    testbase testing run --root ./source/testroots/automojo --includes=automojo.tests.thisapp.singlehost --output=./.output
+    testbase testing run --root ./source/testroots/ccai --includes=ccai.tests.thisapp.singlehost --output=./.output
 ```
 
 Because `testbase` tests have no `setUp`/`tearDown`, shared per-test setup is replicated through
@@ -66,11 +66,11 @@ the authoritative suite and is the one the merge gate runs; the two suites are k
 the shift.
 
 # Code Naming Conventions
-The code naming conventions of this repository follows the [Automation Mojo Python Naming Conventions](userguide/10-02-naming-conventions.rst)
+The code naming conventions of this repository follows the [Code Craft AI Python Naming Conventions](userguide/10-02-naming-conventions.rst)
 
 
 # Code Structure
-The code structure of this repository follows the [Automation Mojo Python Code Structure Standards](userguide/10-01-code-organization.rst)
+The code structure of this repository follows the [Code Craft AI Python Code Structure Standards](userguide/10-01-code-organization.rst)
 
 
 # Coding Standards

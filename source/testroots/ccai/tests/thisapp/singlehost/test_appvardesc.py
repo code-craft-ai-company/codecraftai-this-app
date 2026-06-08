@@ -1,5 +1,5 @@
 """
-    Testbase tests for the ``automojo.thisapp.appvardesc`` module.
+    Testbase tests for the ``ccai.thisapp.appvardesc`` module.
 
     These tests cover the ``AppVarDesc`` descriptor, the ``VariableSource``
     flag enumeration, and the ``assert_section_name`` / ``assert_variable_name``
@@ -17,7 +17,7 @@ TEST_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "packa
 if TEST_ROOT not in sys.path:
     sys.path.insert(0, TEST_ROOT)
 
-from automojo.thisapp.appvardesc import (
+from ccai.thisapp.appvardesc import (
     AppVarDesc,
     VariableSource,
     assert_section_name,

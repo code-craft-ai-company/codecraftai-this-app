@@ -1,8 +1,8 @@
 ==========================
-Automation Mojo This App
+Code Craft AI This App
 ==========================
 
-The ``automojo-this-app`` package is a foundational Python library that manages application presence and configuration for the Automation Mojo framework. It provides a lightweight configuration management system that allows applications to establish their presence on a user's machine with customizable settings. The package serves as the foundational configuration layer for Automation Mojo applications and tools, handling application identity, configuration-file discovery, environment-variable precedence, extensible module loading, and machine-specific presence establishment.
+The ``codecraftai-this-app`` package is a foundational Python library that manages application presence and configuration for the Code Craft AI framework. It provides a lightweight configuration management system that allows applications to establish their presence on a user's machine with customizable settings. The package serves as the foundational configuration layer for Code Craft AI applications and tools, handling application identity, configuration-file discovery, environment-variable precedence, extensible module loading, and machine-specific presence establishment.
 
 Highlights
 ==========

@@ -5,16 +5,16 @@ import unittest
 from unittest import mock
 from datetime import datetime
 
-from automojo.thisapp import activation
-from automojo.xmodules.xdatetime import DATETIME_FORMAT_FILESYSTEM
-from automojo.xmodules.xlogging import activation as loggingactivation
+from ccai.thisapp import activation
+from ccai.xmodules.xdatetime import DATETIME_FORMAT_FILESYSTEM
+from ccai.xmodules.xlogging import activation as loggingactivation
 
-from automojo.thisapp.contextpaths import ContextPaths
-from automojo.thisapp.enumerations import ActivationProfile, JobType
-from automojo.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
-from automojo.thisapp import wellknown
-from automojo.thisapp.appvaraccessor import AppVarAccessor
-from automojo.thisapp.thisapplication import ThisApplication
+from ccai.thisapp.contextpaths import ContextPaths
+from ccai.thisapp.enumerations import ActivationProfile, JobType
+from ccai.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
+from ccai.thisapp import wellknown
+from ccai.thisapp.appvaraccessor import AppVarAccessor
+from ccai.thisapp.thisapplication import ThisApplication
 
 
 class ActivationProfileTests(unittest.TestCase):
