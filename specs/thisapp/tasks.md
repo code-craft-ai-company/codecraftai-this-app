@@ -1,4 +1,4 @@
-# AutoMojo This-App Package Implementation Tasks
+# Code Craft AI This-App Package Implementation Tasks
 
 ## Overview
 

@@ -1,4 +1,4 @@
-# AutoMojo This-App Package Design Document
+# Code Craft AI This-App Package Design Document
 
 ## Overview
 

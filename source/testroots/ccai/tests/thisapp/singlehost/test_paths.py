@@ -200,7 +200,7 @@ def test_get_directory_for_code_container() -> None:
     try:
         import ccai.thisapp.paths as mod
         dpath = paths.get_directory_for_code_container(mod)
-        assert dpath.endswith(os.path.join("ccai", "runtime"))
+        assert dpath.endswith(os.path.join("ccai", "thisapp"))
     finally:
         _teardown_thisapp_env(env)
     return

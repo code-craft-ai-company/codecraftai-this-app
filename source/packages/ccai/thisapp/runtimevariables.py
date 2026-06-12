@@ -43,6 +43,12 @@ def default_job_seed():
     rtnval = str(uuid4())
     return rtnval
 
+
+def default_starttime():
+    rtnval = datetime.now()
+    return rtnval
+
+
 class RuntimeVariablesDesc(PersonaVariablesDesc):
 
     AM_ACTIVATION_PROFILE = AppVarDesc(default=None)
@@ -99,7 +105,7 @@ class RuntimeVariablesDesc(PersonaVariablesDesc):
     AM_RESULTS_STATIC_RESOURCE_DEST_DIR = AppVarDesc(default=None)
     AM_RESULTS_STATIC_RESOURCE_SRC_DIR = AppVarDesc(default=None)
 
-    AM_STARTTIME = AppVarDesc(default=datetime.now(), context_path=ContextPaths.STARTTIME)
+    AM_STARTTIME = AppVarDesc(default=default_starttime, context_path=ContextPaths.STARTTIME)
 
     AM_TESTROOT = AppVarDesc(default=None, context_path=ContextPaths.TESTROOT)
     AM_TESTRUN_TIMEOUT = AppVarDesc(default=None)

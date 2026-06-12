@@ -119,7 +119,7 @@ class PathsTestCase(unittest.TestCase):
     def test_get_directory_for_code_container(self):
         import ccai.thisapp.paths as mod
         dpath = paths.get_directory_for_code_container(mod)
-        self.assertTrue(dpath.endswith(os.path.join("ccai", "runtime")))
+        self.assertTrue(dpath.endswith(os.path.join("ccai", "thisapp")))
 
     def test_normalize_name_for_path(self):
         name = "My Module: test,1.2;3"

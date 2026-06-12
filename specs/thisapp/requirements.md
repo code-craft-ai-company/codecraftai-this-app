@@ -1,4 +1,4 @@
-# AutoMojo This-App Package Requirements
+# Code Craft AI This-App Package Requirements
 
 ## 1. Application Identity Management
 

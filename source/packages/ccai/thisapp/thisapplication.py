@@ -252,7 +252,12 @@ class ThisApplication:
         elif vname == PersonaVariablesDesc.AM_LOGGER_NAME.name:
             self._logger_name = new_value
 
-        return
+        # Mirror _perform_variable_resolution: persist the override into the
+        # Context when the variable declares a context_path, so activation paths
+        # (e.g. ContextPaths.OUTPUT_DIRECTORY set via override at activation time)
+        # are populated by overrides and not just by lazy resolution.
+        if variable_desc.context_path is not None:
+            self._context.insert(variable_desc.context_path, new_value)
 
         return
 
