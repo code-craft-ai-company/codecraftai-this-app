@@ -14,7 +14,7 @@ develop = false
 type = "git"
 url = "https://github.com/automationmojo/codecraftai-errors.git"
 reference = "main"
-resolved_reference = "f76c16a9ca66387a96eee0dc0f28dbbecb4ee34d"
+resolved_reference = "a3ee3ce854614330c11512af8c6078db5ecb0375"
 
 [[package]]
 name = "codecraftai-extension"
@@ -30,7 +30,7 @@ develop = false
 type = "git"
 url = "https://github.com/automationmojo/codecraftai-extension.git"
 reference = "main"
-resolved_reference = "d43541c02d781d248cefbe05704f4647af69a24f"
+resolved_reference = "a3c3b5df8af386d20871c15cfd2162a8673a0569"
 
 [[package]]
 name = "codecraftai-waiting"
@@ -67,7 +67,7 @@ debugpy = "^1.8.14"
 type = "git"
 url = "https://github.com/automationmojo/codecraftai-xmodules.git"
 reference = "main"
-resolved_reference = "59d3790dc3967f89afb72c97b7f7af3be5c5c252"
+resolved_reference = "dfb5191a61ad266c02427aaa2377b0dc53fd4033"
 
 [[package]]
 name = "debugpy"
