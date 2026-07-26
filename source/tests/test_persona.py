@@ -81,7 +81,6 @@ class TestPersona(unittest.TestCase):
             settings_file="settings.config",
             extensions="mod1;mod2",
             service_name="demo-service",
-            context_insert=None,
         )
 
         self.assertTrue(persona.APP_PERSONA_ESTABLISHED)
@@ -102,7 +101,6 @@ class TestPersona(unittest.TestCase):
             settings_file="settings.config",
             extensions=None,
             service_name=None,
-            context_insert=None,
         )
 
         first_app = wellknown.THISAPPLICATION_SINGLETON
@@ -116,10 +114,67 @@ class TestPersona(unittest.TestCase):
             settings_file="settings2.config",
             extensions=None,
             service_name=None,
-            context_insert=None,
         )
 
         self.assertIs(wellknown.THISAPPLICATION_SINGLETON, first_app)
+
+    def test_default_presence_dir_is_absolute_and_expanded(self):
+        persona.establish_app_persona(
+            name="DemoApp",
+            logger_name="demo.logger",
+            log_basename="demo",
+        )
+
+        presence = persona.AppPersona.AM_PRESENCE_DIR
+        self.assertTrue(os.path.isabs(presence),
+                        "The default presence dir must be absolute; the relative '~/<name>' "
+                        "join made every derived path land under a literal '~/' directory "
+                        "inside the current working directory.")
+        self.assertNotIn("~", presence)
+        self.assertEqual(persona.AppPersona.AM_LOG_DIRECTORY, os.path.join(presence, "logs"))
+
+    def test_explicit_tilde_presence_dir_is_expanded(self):
+        persona.establish_app_persona(
+            name="DemoApp",
+            logger_name="demo.logger",
+            log_basename="demo",
+            presence_dir=os.path.join("~", "demoapp-presence"),
+        )
+
+        presence = persona.AppPersona.AM_PRESENCE_DIR
+        self.assertTrue(os.path.isabs(presence))
+        self.assertNotIn("~", presence)
+
+    def test_unknown_keyword_arguments_raise(self):
+        # 'home_dir' instead of 'presence_dir' was silently swallowed for
+        # months; the application then ran with a default it never chose.
+        with self.assertRaises(SemanticError) as context:
+            persona.establish_app_persona(
+                name="DemoApp",
+                logger_name="demo.logger",
+                log_basename="demo",
+                home_dir="/tmp/somewhere",
+            )
+        self.assertIn("home_dir", str(context.exception))
+        self.assertFalse(persona.APP_PERSONA_ESTABLISHED,
+                         "A rejected call must not establish the persona.")
+
+    def test_unknown_keyword_arguments_raise_even_when_established(self):
+        # The guard runs before the already-established short-circuit, so a
+        # SECOND caller with a typo is told about it instead of silently
+        # no-opping.
+        persona.establish_app_persona(
+            name="DemoApp",
+            logger_name="demo.logger",
+            log_basename="demo",
+        )
+        with self.assertRaises(SemanticError):
+            persona.establish_app_persona(
+                name="OtherApp",
+                logger_name="other.logger",
+                log_basename="other",
+                extension_modules="some.module",
+            )
 
 
 if __name__ == "__main__":

@@ -43,9 +43,19 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, pre
     
     global APP_PERSONA_ESTABLISHED
 
+    if len(other) > 0:
+        # A misnamed keyword must not pass silently: 'home_dir' instead of
+        # 'presence_dir' or 'extension_modules' instead of 'extensions' would
+        # be swallowed here, and the application would run with a DEFAULT it
+        # never chose (results under a literal '~/' directory in the CWD,
+        # extensions that never load).
+        unknown = ", ".join(sorted(other.keys()))
+        errmsg = "establish_app_persona was passed unrecognized keyword arguments: {}".format(unknown)
+        raise SemanticError(errmsg)
+
     if not APP_PERSONA_ESTABLISHED:
         APP_PERSONA_ESTABLISHED = True
-    
+
         AppPersona.AM_NAME = name
         AppPersona.AM_LOGGER_NAME = logger_name
         AppPersona.AM_LOG_BASENAME = log_basename
@@ -55,8 +65,14 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, pre
         else:
             AppPersona.AM_PRESENCE_DIR = os.path.join("~", name.lower())
 
+        # Expand '~' and environment variables and anchor to an absolute path.
+        # Without this, the default above is the RELATIVE path '~/<name>', and
+        # every path derived from the presence directory silently lands under
+        # a literal '~/' directory inside the current working directory.
+        AppPersona.AM_PRESENCE_DIR = os.path.abspath(os.path.expandvars(os.path.expanduser(AppPersona.AM_PRESENCE_DIR)))
+
         if log_directory is not None:
-            AppPersona.AM_LOG_DIRECTORY = log_directory
+            AppPersona.AM_LOG_DIRECTORY = os.path.abspath(os.path.expandvars(os.path.expanduser(log_directory)))
         else:
             AppPersona.AM_LOG_DIRECTORY = os.path.join(AppPersona.AM_PRESENCE_DIR, "logs")
         
