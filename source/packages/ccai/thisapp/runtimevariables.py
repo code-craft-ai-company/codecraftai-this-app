@@ -94,7 +94,7 @@ class RuntimeVariablesDesc(PersonaVariablesDesc):
     AM_JOB_VENUE = AppVarDesc(default=DefaultValue.NotSet, context_path=ContextPaths.JOB_VENUE)
 
     AM_LOG_LEVEL_CONSOLE = AppVarDesc(default=LogLevel.WARNING, context_path=ContextPaths.LOGGING_LEVEL_CONSOLE)
-    AM_LOG_LEVEL_FILE = AppVarDesc(default=LogLevel.DEBUG, context_path=ContextPaths.LOGGING_LEVEL_LOGFILE)
+    AM_LOG_LEVEL_FILE = AppVarDesc(default=LogLevel.INFO, context_path=ContextPaths.LOGGING_LEVEL_LOGFILE)
 
     AM_OUTPUT_DIRECTORY = AppVarDesc(default=None, context_path=ContextPaths.OUTPUT_DIRECTORY)
 
