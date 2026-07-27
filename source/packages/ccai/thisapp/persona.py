@@ -114,3 +114,50 @@ def establish_app_persona(*, name: str, logger_name: str, log_basename: str, pre
         this_app.override_variable_value(PersonaVariablesDesc.AM_EXTENSIONS, AppPersona.AM_EXTENSIONS)        
 
     return
+
+def reset_app_persona() -> None:
+    """
+        Reset the application persona so another one can be established.
+
+        Establishing a persona is a once-per-process operation: `AppPersona`
+        holds its settings as class attributes and `wellknown` holds the single
+        application instance built from them. A test process that needs to
+        establish a second persona — or a test suite whose collection imports
+        two application modules — has no way past that without this.
+
+        Everything `establish_app_persona` sets is cleared, including the
+        configured super factory: it is built from the persona's extension
+        modules, so leaving it in place would hand the next persona the
+        previous one's extensions.
+
+        .. warning::
+            For tests only. Resetting a live application's persona leaves any
+            code already holding the old instance pointing at a discarded one.
+
+        :returns: ``None``
+    """
+    global APP_PERSONA_ESTABLISHED
+
+    # Imported here rather than at module scope, matching
+    # establish_app_persona: wellknown imports back from this tier.
+    from ccai.thisapp import wellknown
+
+    wellknown.SINGLETON_LOCK.acquire()
+    try:
+        APP_PERSONA_ESTABLISHED = False
+
+        wellknown.THISAPPLICATION_SINGLETON = None
+        wellknown.CONFIGURED_SUPER_FACTORY = None
+
+        AppPersona.AM_NAME = None
+        AppPersona.AM_LOGGER_NAME = None
+        AppPersona.AM_LOG_BASENAME = None
+        AppPersona.AM_PRESENCE_DIR = None
+        AppPersona.AM_LOG_DIRECTORY = None
+        AppPersona.AM_SETTINGS_FILENAME = None
+        AppPersona.AM_EXTENSIONS = None
+        AppPersona.AM_SERVICE_NAME = None
+    finally:
+        wellknown.SINGLETON_LOCK.release()
+
+    return
