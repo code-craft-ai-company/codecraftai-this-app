@@ -12,7 +12,7 @@ develop = false
 
 [package.source]
 type = "git"
-url = "https://github.com/automationmojo/codecraftai-errors.git"
+url = "https://github.com/code-craft-ai-company/codecraftai-errors.git"
 reference = "main"
 resolved_reference = "bbc01a9b9e7602c225ffab0716bc6e56b472e4b4"
 
@@ -28,7 +28,7 @@ develop = false
 
 [package.source]
 type = "git"
-url = "https://github.com/automationmojo/codecraftai-extension.git"
+url = "https://github.com/code-craft-ai-company/codecraftai-extension.git"
 reference = "main"
 resolved_reference = "154a29978e55f7c0aedf19d65420ab705db876f7"
 
@@ -44,7 +44,7 @@ develop = false
 
 [package.source]
 type = "git"
-url = "https://github.com/automationmojo/codecraftai-waiting.git"
+url = "https://github.com/code-craft-ai-company/codecraftai-waiting.git"
 reference = "main"
 resolved_reference = "071b83b5ff6ce8cb8966aee7e6a2de97a6e926d1"
 
@@ -59,15 +59,15 @@ files = []
 develop = false
 
 [package.dependencies]
-codecraftai-errors = {git = "https://github.com/automationmojo/codecraftai-errors.git", branch = "main"}
-codecraftai-waiting = {git = "https://github.com/automationmojo/codecraftai-waiting.git", branch = "main"}
+codecraftai-errors = {git = "https://github.com/code-craft-ai-company/codecraftai-errors.git", branch = "main"}
+codecraftai-waiting = {git = "https://github.com/code-craft-ai-company/codecraftai-waiting.git", branch = "main"}
 debugpy = "^1.8.14"
 
 [package.source]
 type = "git"
-url = "https://github.com/automationmojo/codecraftai-xmodules.git"
+url = "https://github.com/code-craft-ai-company/codecraftai-xmodules.git"
 reference = "main"
-resolved_reference = "7c2935cf442e9e1747765f820d9ea811b85756c0"
+resolved_reference = "aa6007a13842bbe98a1c22147e2b6b8391481053"
 
 [[package]]
 name = "debugpy"
@@ -112,4 +112,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4.0"
-content-hash = "726b29175e4224245e2cc2af1c3d285d290229b672dbbf70097ebf4b9ffc3def"
+content-hash = "363bfac53d9c011bcaa033a8733322df079648c3fa4dd43e67a48ea8215bc01f"
