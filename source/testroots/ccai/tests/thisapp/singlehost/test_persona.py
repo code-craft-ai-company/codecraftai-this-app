@@ -127,7 +127,6 @@ def test_establish_app_persona_sets_values() -> None:
             settings_file="settings.config",
             extensions="mod1;mod2",
             service_name="demo-service",
-            context_insert=None,
         )
 
         assert persona.APP_PERSONA_ESTABLISHED
@@ -159,7 +158,6 @@ def test_establish_app_persona_subsequent_call_returns_existing() -> None:
             settings_file="settings.config",
             extensions=None,
             service_name=None,
-            context_insert=None,
         )
 
         first_app = wellknown.THISAPPLICATION_SINGLETON
@@ -173,7 +171,6 @@ def test_establish_app_persona_subsequent_call_returns_existing() -> None:
             settings_file="settings2.config",
             extensions=None,
             service_name=None,
-            context_insert=None,
         )
 
         assert wellknown.THISAPPLICATION_SINGLETON is first_app
