@@ -16,7 +16,7 @@ from unittest import mock
 
 from ccai.thisapp import paths
 from ccai.thisapp.enumerations import JobType
-from ccai.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
+from ccai.thisapp.runtimevariables import RuntimeVariablesDesc
 from ccai.thisapp import wellknown
 from ccai.thisapp.appvaraccessor import AppVarAccessor
 from ccai.thisapp.thisapplication import ThisApplication

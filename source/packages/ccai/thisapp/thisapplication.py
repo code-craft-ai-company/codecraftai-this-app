@@ -11,7 +11,7 @@ __copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 
-from typing import Any, Callable, Optional, Union
+from typing import Any, Optional, Union
 
 import os
 

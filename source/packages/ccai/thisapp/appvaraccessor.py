@@ -71,8 +71,6 @@ class AppVarAccessor:
         """
             Resolves the value for this variable by delegating to :meth:`perform_read`.
         """
-        target_owner = owner if owner is not None else self._owner
-
         vfound = self.this_app.get_variable_value(self._var_desc)
 
         return vfound

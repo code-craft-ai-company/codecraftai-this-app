@@ -15,16 +15,15 @@
 import os
 import shutil
 import tempfile
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Dict, Optional
 from unittest import mock
 from datetime import datetime
 
 from ccai.thisapp import activation
-from ccai.xmodules.xdatetime import DATETIME_FORMAT_FILESYSTEM
 from ccai.xmodules.xlogging import activation as loggingactivation
 
 from ccai.thisapp.contextpaths import ContextPaths
-from ccai.thisapp.enumerations import ActivationProfile, JobType
+from ccai.thisapp.enumerations import JobType
 from ccai.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
 from ccai.thisapp import wellknown
 from ccai.thisapp.appvaraccessor import AppVarAccessor

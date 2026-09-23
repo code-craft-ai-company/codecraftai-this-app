@@ -2,11 +2,11 @@ import os
 import shutil
 import tempfile
 import unittest
-from unittest import mock
+import unittest.mock
 
 from ccai.thisapp import paths
 from ccai.thisapp.enumerations import JobType
-from ccai.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
+from ccai.thisapp.runtimevariables import RuntimeVariablesDesc
 from ccai.thisapp import wellknown
 from ccai.thisapp.appvaraccessor import AppVarAccessor
 from ccai.thisapp.thisapplication import ThisApplication
@@ -23,7 +23,7 @@ class PathsTestCase(unittest.TestCase):
         os.makedirs(self.output_dir, exist_ok=True)
         os.makedirs(self.shared_dir, exist_ok=True)
 
-        self.env_patch = mock.patch.dict(os.environ, {}, clear=True)
+        self.env_patch = unittest.mock.patch.dict(os.environ, {}, clear=True)
         self.env_patch.start()
 
         AppVarAccessor._this_app = None

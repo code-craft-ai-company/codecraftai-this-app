@@ -60,7 +60,8 @@ def test_context_exists_and_remove() -> None:
     assert not ctx.exists('/a/b')
 
     # Removing a non-existent path should not raise when ignore_missing=True
-    assert ctx.remove('/c/d', ignore_missing=True) is None
+    missing_removed = ctx.remove('/c/d', ignore_missing=True)
+    assert missing_removed is None
     return
 
 

@@ -2,15 +2,14 @@ import os
 import shutil
 import tempfile
 import unittest
-from unittest import mock
+import unittest.mock
 from datetime import datetime
 
 from ccai.thisapp import activation
-from ccai.xmodules.xdatetime import DATETIME_FORMAT_FILESYSTEM
 from ccai.xmodules.xlogging import activation as loggingactivation
 
 from ccai.thisapp.contextpaths import ContextPaths
-from ccai.thisapp.enumerations import ActivationProfile, JobType
+from ccai.thisapp.enumerations import JobType
 from ccai.thisapp.runtimevariables import RuntimeVariables, RuntimeVariablesDesc
 from ccai.thisapp import wellknown
 from ccai.thisapp.appvaraccessor import AppVarAccessor
@@ -22,7 +21,7 @@ class ActivationProfileTests(unittest.TestCase):
     def setUp(self):
         self._saved_env = os.environ.copy()
 
-        self.env_patch = mock.patch.dict(os.environ, {}, clear=True)
+        self.env_patch = unittest.mock.patch.dict(os.environ, {}, clear=True)
         self.env_patch.start()
 
         AppVarAccessor._this_app = None
@@ -78,7 +77,7 @@ class ActivationProfileTests(unittest.TestCase):
         return
 
     def test_activate_runtime_dispatches(self):
-        with mock.patch.object(activation, '_activate_profile_common') as mock_console:
+        with unittest.mock.patch.object(activation, '_activate_profile_common') as mock_console:
             activation.activate_profile_console()
             mock_console.assert_called_once()
 
@@ -109,7 +108,7 @@ class ActivationCommonTests(unittest.TestCase):
         self.temp_dir = tempfile.mkdtemp()
         self.context_store = {}
 
-        self.env_patch = mock.patch.dict(os.environ, {}, clear=True)
+        self.env_patch = unittest.mock.patch.dict(os.environ, {}, clear=True)
         self.env_patch.start()
 
         AppVarAccessor._this_app = None

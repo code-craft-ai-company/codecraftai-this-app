@@ -3,7 +3,7 @@ import shutil
 import tempfile
 import unittest
 from datetime import datetime
-from unittest import mock
+import unittest.mock
 
 from ccai.thisapp import runtimevariables
 from ccai.thisapp.runtimevariables import RuntimeVariablesDesc, DefaultValue
@@ -14,7 +14,7 @@ from ccai.thisapp.thisapplication import ThisApplication
 class RuntimeVariablesTests(unittest.TestCase):
 
     def setUp(self):
-        self.env_patch = mock.patch.dict(os.environ, {}, clear=True)
+        self.env_patch = unittest.mock.patch.dict(os.environ, {}, clear=True)
         self.env_patch.start()
 
         AppVarAccessor._this_app = None
@@ -79,20 +79,20 @@ class RuntimeVariablesTests(unittest.TestCase):
         self.assertNotEqual(seed, DefaultValue.NotSet)
 
     def test_resolve_uses_environment_seed(self):
-        with mock.patch.dict(os.environ, {'AM_JOB_SEED': 'seed123'}, clear=True):
+        with unittest.mock.patch.dict(os.environ, {'AM_JOB_SEED': 'seed123'}, clear=True):
             runtimevariables.resolve_runtime_variables()
             found = runtimevariables.RuntimeVariables.AM_JOB_SEED
             self.assertEqual('seed123', found)
 
     def test_resolve_parses_starttime_timestamp(self):
         start_time = '2025-01-02T03:04:05.123456'
-        with mock.patch.dict(os.environ, {'AM_STARTTIME': start_time}, clear=True):
+        with unittest.mock.patch.dict(os.environ, {'AM_STARTTIME': start_time}, clear=True):
             runtimevariables.resolve_runtime_variables()
             found = runtimevariables.RuntimeVariables.AM_STARTTIME
             self.assertIsInstance(found, datetime)
 
     def test_resolve_parses_shared_output_directory_bool(self):
-        with mock.patch.dict(os.environ, {'AM_HAS_SHARED_OUTPUT_DIRECTORY': 'true'}, clear=True):
+        with unittest.mock.patch.dict(os.environ, {'AM_HAS_SHARED_OUTPUT_DIRECTORY': 'true'}, clear=True):
             runtimevariables.resolve_runtime_variables()
             found = runtimevariables.RuntimeVariables.AM_HAS_SHARED_OUTPUT_DIRECTORY
             self.assertTrue(found)

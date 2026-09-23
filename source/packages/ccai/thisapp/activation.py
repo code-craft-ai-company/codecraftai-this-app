@@ -11,8 +11,6 @@ __copyright__ = "Copyright 2025, Code Craft AI LLC"
 __credits__ = []
 
 
-from typing import Optional
-
 import os
 import tempfile
 import uuid
@@ -28,7 +26,7 @@ from ccai.xmodules.xlogging.levels import LogLevel
 from ccai.thisapp.thisapplication import ThisApplication
 from ccai.thisapp.wellknown import ThisApplicationSingleton
 
-from ccai.xmodules.xlogging.parameters import LoggingLocation, LoggingReduction
+from ccai.xmodules.xlogging.parameters import LoggingLocation
 from ccai.xmodules.xlogging.activation import (
     activate_standard_file_logging,
     activate_interactive_console_logging,
