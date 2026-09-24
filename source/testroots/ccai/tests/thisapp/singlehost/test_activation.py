@@ -12,6 +12,8 @@
     the original ``unittest.TestCase.setUp``/``tearDown`` pair provided.
 """
 
+import contextlib
+import io
 import os
 import shutil
 import tempfile
@@ -177,6 +179,63 @@ def test_activate_runtime_dispatches() -> None:
         with mock.patch.object(activation, '_activate_profile_common') as mock_console:
             activation.activate_profile_console()
             mock_console.assert_called_once()
+    finally:
+        _teardown_thisapp_env(env)
+
+    return
+
+
+def _activate_console_capturing_stdout() -> str:
+    """
+        Activates the console profile, with the common activation and the logging activation
+        patched out, and captures what is printed to ``sys.stdout``.
+
+        :returns: The text printed to ``sys.stdout`` during activation.
+    """
+    stdout_buffer = io.StringIO()
+    with mock.patch.object(activation, '_activate_profile_common'):
+        with mock.patch.object(activation, 'activate_interactive_console_logging'):
+            with contextlib.redirect_stdout(stdout_buffer):
+                activation.activate_profile_console()
+
+    # The console profile creates a temporary output directory, clean it up.
+    shutil.rmtree(RuntimeVariables.AM_OUTPUT_DIRECTORY, ignore_errors=True)
+
+    console_output = stdout_buffer.getvalue()
+    return console_output
+
+
+def test_activate_profile_console_shows_output_folder_when_interactive() -> None:
+    """
+        Verify that ``activate_profile_console`` prints the output folder when running
+        in an interactive console, because interactive logging keeps logs off the console.
+    """
+    env = _establish_thisapp_env(save_environ=True)
+    try:
+        env.this_app.override_variable_value(RuntimeVariablesDesc.AM_INTERACTIVE_CONSOLE, True)
+
+        console_output = _activate_console_capturing_stdout()
+
+        expected_line = "OUTPUT FOLDER: {}".format(RuntimeVariables.AM_OUTPUT_DIRECTORY)
+        assert expected_line in console_output.splitlines(), f"Unexpected console output: {console_output!r}"
+    finally:
+        _teardown_thisapp_env(env)
+
+    return
+
+
+def test_activate_profile_console_quiet_when_not_interactive() -> None:
+    """
+        Verify that ``activate_profile_console`` does not print the output folder when
+        not running in an interactive console.
+    """
+    env = _establish_thisapp_env(save_environ=True)
+    try:
+        env.this_app.override_variable_value(RuntimeVariablesDesc.AM_INTERACTIVE_CONSOLE, False)
+
+        console_output = _activate_console_capturing_stdout()
+
+        assert "OUTPUT FOLDER" not in console_output, f"Unexpected console output: {console_output!r}"
     finally:
         _teardown_thisapp_env(env)
 

@@ -1,3 +1,5 @@
+import contextlib
+import io
 import os
 import shutil
 import tempfile
@@ -81,6 +83,36 @@ class ActivationProfileTests(unittest.TestCase):
             activation.activate_profile_console()
             mock_console.assert_called_once()
 
+        return
+
+    def _activate_console_capturing_stdout(self) -> str:
+        stdout_buffer = io.StringIO()
+        with unittest.mock.patch.object(activation, '_activate_profile_common'):
+            with unittest.mock.patch.object(activation, 'activate_interactive_console_logging'):
+                with contextlib.redirect_stdout(stdout_buffer):
+                    activation.activate_profile_console()
+
+        # The console profile creates a temporary output directory, clean it up.
+        shutil.rmtree(RuntimeVariables.AM_OUTPUT_DIRECTORY, ignore_errors=True)
+
+        console_output = stdout_buffer.getvalue()
+        return console_output
+
+    def test_activate_profile_console_shows_output_folder_when_interactive(self):
+        self.this_app.override_variable_value(RuntimeVariablesDesc.AM_INTERACTIVE_CONSOLE, True)
+
+        console_output = self._activate_console_capturing_stdout()
+
+        expected_line = "OUTPUT FOLDER: {}".format(RuntimeVariables.AM_OUTPUT_DIRECTORY)
+        self.assertIn(expected_line, console_output.splitlines())
+        return
+
+    def test_activate_profile_console_quiet_when_not_interactive(self):
+        self.this_app.override_variable_value(RuntimeVariablesDesc.AM_INTERACTIVE_CONSOLE, False)
+
+        console_output = self._activate_console_capturing_stdout()
+
+        self.assertNotIn("OUTPUT FOLDER", console_output)
         return
 
     def test_activate_profile_service_requires_service_name(self):

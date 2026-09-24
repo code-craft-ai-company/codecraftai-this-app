@@ -66,6 +66,14 @@ def activate_profile_command():
 
 
 def activate_profile_console():
+    """
+        Activates the 'Console' profile.  The output directory is set to a new temporary directory and logging is
+        activated in interactive mode, which keeps log entries off of 'sys.stdout' and 'sys.stderr'.  When running
+        in an interactive console (``AM_INTERACTIVE_CONSOLE`` is ``True``), the output folder is printed once logging
+        is activated so the user knows where the logs and results for the session are being written.
+
+        :raises: SemanticError
+    """
 
     # Guard against attemps to activate more than one, activation profile.
     if RuntimeVariables.AM_ACTIVATION_PROFILE is not None:
@@ -83,6 +91,9 @@ def activate_profile_console():
     this_app.override_variable_value(RuntimeVariablesDesc.AM_OUTPUT_DIRECTORY, temp_output_dir)
 
     def showlog():
+        """
+            Prints the output folder for the console session.
+        """
 
         print("OUTPUT FOLDER: {}".format(RuntimeVariables.AM_OUTPUT_DIRECTORY))
         print("")
@@ -99,6 +110,12 @@ def activate_profile_console():
     _activate_profile_common(this_app)
 
     activate_interactive_console_logging(logging_location, file_level)
+
+    # Interactive console logging keeps log entries off of the console, so when we are running in an
+    # interactive console, show the user where the output for this session is being written.
+    interactive_console = RuntimeVariables.AM_INTERACTIVE_CONSOLE
+    if interactive_console is True:
+        showlog()
 
     return
 
