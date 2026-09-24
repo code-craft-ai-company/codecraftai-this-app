@@ -1,6 +1,6 @@
 [project]
 name = "codecraftai-this-app"
-version = "1.3.0"
+version = "1.4.0"
 description = "Code Craft AI - This-App"
 readme = "README.rst"
 license = "LicenseRef-CodeCraftAI-Dual-License"
